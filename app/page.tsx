@@ -1,37 +1,37 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import logo from '../public/logo.png';
 import { 
   Monitor, 
   Smartphone, 
   Layers, 
-  Cpu, 
   Database, 
-  ChevronRight, 
   Menu, 
   X, 
-  CheckCircle2, 
   ArrowRight,
-  ShieldCheck,
-  Globe, 
-  Zap,
-  Users,
-  Trophy,
-  Activity,
- 
-  Search,
-  Plus,
+  Target, 
+  Eye, 
+  ShieldCheck, 
+  Zap, 
+  Star, 
+  Clock, 
+  User, 
+  Quote,
+  CheckCircle2,
   Mail,
-  MapPin,
   Phone,
-  Clock
+  MapPin,
+  Send,
+  MessageSquare
 } from 'lucide-react';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [galleryFilter, setGalleryFilter] = useState('All');
   const [currentPage, setCurrentPage] = useState('home');
+  const [formStatus, setFormStatus] = useState<string | null>(null);
 
   const heroSlides = [
     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80",
@@ -39,54 +39,80 @@ const App = () => {
     "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80"
   ];
 
-  const services = [
+  const stats = [
+    { label: "Systems Deployed", value: "250+" },
+    { label: "Uptime Guaranteed", value: "99.9%" },
+    { label: "Users Reached", value: "1.2M" },
+    { label: "Security Audits", value: "100%" }
+  ];
+
+  const portfolio = [
     {
-      title: "Digital Strategy",
-      description: "We define the path to digital sovereignty through rigorous planning and technical auditing.",
-      icon: <Activity className="w-6 h-6" />,
-      tag: "Strategy",
-      details: "Our strategic framework involves deep-dive infrastructure analysis, risk assessment, and long-term digital roadmap construction."
+      title: "Global Ministry Portal",
+      category: "Web Infrastructure",
+      desc: "A unified CMS and distribution platform serving content to 50+ countries with localized caching.",
+      img: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80"
     },
     {
-      title: "Custom Systems",
-      description: "Bespoke software ecosystems designed for high-load government and enterprise operations.",
-      icon: <Layers className="w-6 h-6" />,
-      tag: "Development",
-      details: "We build scalable, modular architectures using modern tech stacks that prioritize performance and maintainability."
+      title: "SecureAuth Enterprise",
+      category: "Cybersecurity",
+      desc: "High-security biometric authentication bridge for financial and sensitive data environments.",
+      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
     },
     {
-      title: "Cloud Infrastructure",
-      description: "Secure, private cloud deployments that ensure data remains under your absolute control.",
-      icon: <Database className="w-6 h-6" />,
-      tag: "Infrastructure",
-      details: "Deployment of sovereign cloud solutions that bypass traditional hyperscaler risks while maintaining global speed."
+      title: "DataStream Analytics",
+      category: "Web App Development",
+      desc: "Real-time visualization engine for complex logistical networks and supply chain monitoring.",
+      img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+    }
+  ];
+
+  const testimonials = [
+    {
+      quote: "LO Platform didn't just build a website; they engineered a foundational system that transformed how we interact with our global community.",
+      author: "David Richardson",
+      org: "Director, Global Reach Initiative",
+      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80"
     },
     {
-      title: "UI/UX Design",
-      description: "Creating intuitive interfaces for complex systems that empower users at every level.",
-      icon: <Monitor className="w-6 h-6" />,
-      tag: "Creative",
-      details: "User-centric design methodologies applied to administrative dashboards and public-facing portals."
+      quote: "Their focus on scalability saved us months of rework when our user base doubled overnight. They build for the future, not just today.",
+      author: "Sarah Jenkins",
+      org: "CTO, NextStream Media",
+      img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80"
     }
   ];
 
   const team = [
-    { name: "Alexander Vance", role: "Chief Architect", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" },
-    { name: "Elena Rodriguez", role: "Head of Infrastructure", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80" },
-    { name: "Marcus Chen", role: "Security Director", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" },
-    { name: "Sarah Jenkins", role: "Design Lead", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80" }
+    { name: "Julian Voss", role: "Chief Architect", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=400&q=80" },
+    { name: "Aria Thorne", role: "Head of Infrastructure", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&h=400&q=80" },
+    { name: "Kaelen Chen", role: "Design Director", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&h=400&q=80" }
   ];
 
-  const galleryItems = [
-    { title: "Network Core", cat: "Development", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&w=600&q=80" },
-    { title: "User Portal", cat: "Design", img: "https://images.unsplash.com/photo-1581291518655-95245be4b272?auto=format&fit=crop&w=600&q=80" },
-    { title: "Cloud Node", cat: "Infrastructure", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" },
-    { title: "Safety Protocol", cat: "Security", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" }
-  ];
-
-  const blogPosts = [
-    { date: "24 Mar", title: "The Future of Sovereign Data Clouds", excerpt: "How nations are reclaiming digital borders in the era of hyperscalers...", author: "Admin", comments: "12", content: "The concept of digital sovereignty has moved from academic debate to national priority. In this post, we explore why private infrastructure is the only way to ensure data integrity..." },
-    { date: "18 Mar", title: "Securing High-Load Government Portals", excerpt: "Technical deep-dive into the security layers required for civil infrastructure...", author: "Tech Team", comments: "08", content: "When dealing with millions of concurrent users, standard security protocols often fall short. We examine load balancing strategies and Zero Trust architecture..." }
+  const services = [
+    { 
+      title: "Web Design", 
+      icon: <Monitor className="w-8 h-8" />, 
+      short: "Attractive websites that perform and bring results.",
+      description: "Our web design approach focuses on creating visually engaging, user-centered experiences that communicate your brand clearly and convert visitors into customers. From layout to interaction, every element is carefully crafted to ensure clarity, responsiveness, and seamless navigation across all devices. We don't just design pages; we create experiences that leave lasting impressions." 
+    },
+    { 
+      title: "Web App Development", 
+      icon: <Layers className="w-8 h-8" />, 
+      short: "Powerful systems that streamline productivity and growth.",
+      description: "We build secure, scalable, and high-performing web applications tailored to your specific operational needs. Whether it's internal systems, customer platforms, or enterprise solutions, we ensure every application is built with precision and future scalability in mind. We transform complex ideas into intelligent digital systems that work efficiently and reliably." 
+    },
+    { 
+      title: "Mobile App Development", 
+      icon: <Smartphone className="w-8 h-8" />, 
+      short: "Seamless user experiences across iOS and Android.",
+      description: "Our mobile solutions are designed to provide seamless user experiences across iOS and Android platforms, combining intuitive interfaces with strong backend performance. From concept to launch, we build apps that are fast, reliable, and optimized to meet your business goals while keeping users at the center of every interaction." 
+    },
+    { 
+      title: "Technical Infrastructure", 
+      icon: <Database className="w-8 h-8" />, 
+      short: "Reliable technical backbone for organizations and ministries.",
+      description: "We deliver structured, reliable, and future-ready technology frameworks designed to support communication, data management, automation, and scalability. Whether you are building from the ground up or optimizing existing systems, our infrastructure solutions ensure your operations run smoothly and securely, empowering your mission and enhancing your reach." 
+    }
   ];
 
   useEffect(() => {
@@ -100,11 +126,9 @@ const App = () => {
         }
       });
     };
-
     const slideInterval = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % heroSlides.length);
     }, 6000);
-
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => {
@@ -119,9 +143,17 @@ const App = () => {
     setIsMenuOpen(false);
   };
 
+  const handleFormSubmit = (e:any) => {
+    e.preventDefault();
+    setFormStatus('sending');
+    setTimeout(() => {
+        setFormStatus('success');
+    }, 1500);
+  };
+
   const PageHeader = ({ title, subtitle }: { title: any; subtitle: any }) => (
     <section className="pt-48 pb-20 bg-slate-950 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-fixed opacity-20"></div>
+      <div className="absolute inset-0 bg-blue-600/10 mix-blend-overlay"></div>
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex items-center space-x-4 mb-6 reveal active">
           <div className="h-[2px] w-12 bg-blue-600"></div>
@@ -136,95 +168,122 @@ const App = () => {
 
   const renderContent = () => {
     switch (currentPage) {
+      case 'about':
+        return (
+          <>
+            <PageHeader title="Our Foundation" subtitle="Mission & Excellence" />
+            <section className="py-32 bg-white">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="grid lg:grid-cols-2 gap-20 items-start">
+                  <div className="reveal">
+                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-6">Who We Are</h2>
+                    <h3 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter mb-8 leading-tight">
+                      We engineer scalable systems that power <span className="text-blue-600 underline decoration-slate-200">growth.</span>
+                    </h3>
+                    <div className="space-y-6 text-xl text-slate-600 leading-relaxed">
+                      <p>
+                        At LO Platform, we do more than build digital products; we engineer scalable systems that power growth, efficiency, and transformation. We are a forward-thinking technology company focused on helping organizations, ministries, and businesses discover their full digital potential through intelligent design and robust development.
+                      </p>
+                      <p>
+                        Our approach blends strategy, creativity, and engineering excellence to deliver solutions that are functional and impactful. Every project we take on is driven by a clear objective: to create platforms that perform, engage, and scale.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-slate-950 p-12 md:p-20 text-white reveal">
+                    <div className="space-y-12">
+                      <div className="flex gap-6">
+                        <CheckCircle2 className="text-blue-600 shrink-0" size={32} />
+                        <div>
+                          <h4 className="text-xl font-black uppercase mb-3">Goal Aligned</h4>
+                          <p className="text-slate-400">We work closely with our clients to have adequate comprehension of their vision and ideas, then translate them into powerful digital experiences.</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-6">
+                        <ShieldCheck className="text-blue-600 shrink-0" size={32} />
+                        <div>
+                          <h4 className="text-xl font-black uppercase mb-3">Excellence Standard</h4>
+                          <p className="text-slate-400">At LO Platform, innovation and excellence is our standard. We deliver technology that empowers you to operate smarter and reach wider.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
+            <section className="py-32 bg-slate-50">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
+                  <div className="max-w-2xl">
+                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Leadership</h2>
+                    <h3 className="text-5xl font-black text-slate-900 uppercase tracking-tighter">The Architects of Change.</h3>
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-3 gap-px bg-slate-200">
+                  {team.map((member, i) => (
+                    <div key={i} className="bg-white p-12 group reveal">
+                      <div className="aspect-square overflow-hidden mb-8 grayscale group-hover:grayscale-0 transition-all duration-700">
+                        <img src={member.img} alt={member.name} className="w-full h-full object-cover" />
+                      </div>
+                      <h4 className="text-2xl font-black text-slate-900 uppercase tracking-tighter">{member.name}</h4>
+                      <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-6">{member.role}</p>
+                      <div className="flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <X size={18} className="cursor-pointer hover:text-blue-600" />
+                        <X size={18} className="cursor-pointer hover:text-blue-600" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
+        );
       case 'services':
         return (
           <>
-            <PageHeader title="Our Services" subtitle="Capabilities" />
-            <section className="py-24 bg-white">
+            <PageHeader title="End-to-End Solutions" subtitle="Our Capabilities" />
+            <section className="py-32 bg-white">
               <div className="max-w-7xl mx-auto px-6">
-                <div className="grid md:grid-cols-2 gap-12">
+                <div className="max-w-4xl mb-24 reveal">
+                  <h3 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter mb-8 leading-tight">
+                    Built on a foundation of strategy, performance, and <span className="text-blue-600">scalability.</span>
+                  </h3>
+                  <p className="text-xl text-slate-600 leading-relaxed">
+                    We deliver digital solutions designed to position your brand, optimize operations, and drive measurable results. Every solution we develop works seamlessly for today and evolves for tomorrow.
+                  </p>
+                </div>
+                
+                <div className="space-y-24">
                   {services.map((s, i) => (
-                    <div key={i} className="p-12 border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-2xl transition-all duration-500 group reveal">
-                      <div className="w-16 h-16 bg-blue-600 text-white flex items-center justify-center mb-8 shadow-lg shadow-blue-600/20">
-                        {s.icon}
+                    <div key={i} className={`grid lg:grid-cols-2 gap-16 items-center reveal ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                      <div className={`${i % 2 !== 0 ? 'lg:order-2' : ''}`}>
+                        <div className="w-20 h-20 bg-blue-600 flex items-center justify-center text-white mb-8">
+                          {s.icon}
+                        </div>
+                        <h4 className="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-6">{s.title}</h4>
+                        <p className="text-lg text-slate-600 leading-relaxed">
+                          {s.description}
+                        </p>
                       </div>
-                      <h4 className="text-3xl font-black text-slate-900 mb-4 uppercase">{s.title}</h4>
-                      <p className="text-slate-600 mb-8 leading-relaxed text-lg">{s.details}</p>
-                      <button className="text-blue-600 font-black text-xs uppercase tracking-widest flex items-center hover:text-slate-900 transition-colors">
-                        Inquire Details <ChevronRight size={14} className="ml-2" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </>
-        );
-      case 'team':
-        return (
-          <>
-            <PageHeader title="Expert Team" subtitle="Technical Minds" />
-            <section className="py-24 bg-white">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {team.map((member, i) => (
-                    <div key={i} className="reveal">
-                       <div className="aspect-[4/5] overflow-hidden mb-6 group relative">
-                        <img src={member.img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt={member.name} />
-                        <div className="absolute inset-0 bg-blue-600/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      </div>
-                      <h4 className="text-2xl font-black text-slate-900 uppercase">{member.name}</h4>
-                      <p className="text-blue-600 text-[10px] font-black uppercase tracking-widest mb-4">{member.role}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </>
-        );
-      case 'gallery':
-        return (
-          <>
-            <PageHeader title="Work Gallery" subtitle="Portfolio" />
-            <section className="py-24 bg-white">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {galleryItems.map((item, i) => (
-                    <div key={i} className="group relative h-[500px] overflow-hidden reveal">
-                      <img src={item.img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={item.title} />
-                      <div className="absolute inset-0 bg-slate-950/80 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                        <span className="text-blue-600 text-xs font-black uppercase tracking-widest mb-2">{item.cat}</span>
-                        <h4 className="text-3xl font-black text-white uppercase tracking-tighter">{item.title}</h4>
+                      <div className={`bg-slate-100 aspect-video relative overflow-hidden ${i % 2 !== 0 ? 'lg:order-1' : ''}`}>
+                         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-slate-950/20"></div>
+                         <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                            <Layers size={120} />
+                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
-            </section>
-          </>
-        );
-      case 'blog':
-        return (
-          <>
-            <PageHeader title="Latest News" subtitle="Resources" />
-            <section className="py-24 bg-white">
-              <div className="max-w-4xl mx-auto px-6 space-y-24">
-                {blogPosts.map((post, i) => (
-                  <article key={i} className="reveal group">
-                    <div className="flex items-center space-x-6 mb-8 text-xs font-black uppercase tracking-widest text-blue-600">
-                      <span>{post.date}</span>
-                      <div className="w-12 h-[1px] bg-slate-200"></div>
-                      <span className="text-slate-400">By {post.author}</span>
-                    </div>
-                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 uppercase hover:text-blue-600 transition-colors cursor-pointer leading-tight">
-                      {post.title}
-                    </h2>
-                    <p className="text-xl text-slate-600 leading-relaxed mb-10">{post.content}</p>
-                    <button className="px-10 py-5 bg-slate-950 text-white font-black uppercase tracking-widest text-xs hover:bg-blue-600 transition-all">
-                      Read Full Post
-                    </button>
-                  </article>
-                ))}
+
+                <div className="mt-32 p-12 md:p-24 bg-blue-600 text-white text-center reveal">
+                  <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8">Ready to grow faster?</h3>
+                  <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto">
+                    Partner with LO Platform to create digital solutions that are not only innovative, but impactful, scalable, and built for growth.
+                  </p>
+                  <button className="bg-slate-950 text-white px-12 py-6 font-black uppercase tracking-widest text-sm hover:bg-white hover:text-slate-950 transition-all">
+                    Contact Our Architects
+                  </button>
+                </div>
               </div>
             </section>
           </>
@@ -232,231 +291,363 @@ const App = () => {
       case 'contact':
         return (
           <>
-            <PageHeader title="Get In Touch" subtitle="Contact" />
-            <section className="py-24 bg-white">
+            <PageHeader title="Connect With Us" subtitle="Start a Conversation" />
+            <section className="py-32 bg-white">
               <div className="max-w-7xl mx-auto px-6">
-                <div className="grid lg:grid-cols-2 gap-20">
-                  <div className="space-y-12 reveal">
-                    <h3 className="text-4xl font-black text-slate-900 uppercase">Consult the <br/> Engineering Team.</h3>
-                    <div className="space-y-8">
-                      <div className="flex items-start space-x-6">
-                        <div className="text-blue-600 mt-1"><MapPin /></div>
+                <div className="grid lg:grid-cols-2 gap-24">
+                  <div className="reveal">
+                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-6">Inquiry</h2>
+                    <h3 className="text-4xl md:text-6xl font-black text-slate-900 uppercase tracking-tighter mb-10 leading-none">Let's build the <br /><span className="text-blue-600 underline decoration-slate-200">future</span> together.</h3>
+                    
+                    <div className="space-y-12 mb-16">
+                      <div className="flex items-start space-x-6 group">
+                        <div className="w-14 h-14 bg-slate-950 flex items-center justify-center text-white group-hover:bg-blue-600 transition-colors">
+                          <Mail size={24} />
+                        </div>
                         <div>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">HQ</p>
-                          <p className="text-lg font-bold text-slate-900">Zurich Science Park, CH</p>
+                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Email Our Team</p>
+                          <p className="text-2xl font-black text-slate-900">SYSTEMS@LOPLATFORM.TECH</p>
                         </div>
                       </div>
-                      <div className="flex items-start space-x-6">
-                        <div className="text-blue-600 mt-1"><Mail /></div>
+                      <div className="flex items-start space-x-6 group">
+                        <div className="w-14 h-14 bg-slate-950 flex items-center justify-center text-white group-hover:bg-blue-600 transition-colors">
+                          <MapPin size={24} />
+                        </div>
                         <div>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Inquiries</p>
-                          <p className="text-lg font-bold text-slate-900">systems@loplatform.tech</p>
+                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Global HQ</p>
+                          <p className="text-2xl font-black text-slate-900">SCIENCE PARK, ZURICH, CH</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-6 group">
+                        <div className="w-14 h-14 bg-slate-950 flex items-center justify-center text-white group-hover:bg-blue-600 transition-colors">
+                          <Phone size={24} />
+                        </div>
+                        <div>
+                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Direct Line</p>
+                          <p className="text-2xl font-black text-slate-900">+41 44 200 1000</p>
                         </div>
                       </div>
                     </div>
+
+                    <div className="p-8 border-l-4 border-slate-950 bg-slate-50">
+                      <h5 className="font-black uppercase tracking-widest text-xs mb-4">Availability</h5>
+                      <p className="text-slate-600 leading-relaxed">
+                        Our technical architects are available for consultations Monday through Friday, 09:00 — 18:00 CET. We respond to all inquiries within 24 operational hours.
+                      </p>
+                    </div>
                   </div>
-                  <div className="bg-slate-50 p-12 border border-slate-100 reveal">
-                    <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-                      <input type="text" className="w-full bg-white border border-slate-200 px-6 py-4 focus:border-blue-600 outline-none transition-all" placeholder="Project Name" />
-                      <input type="email" className="w-full bg-white border border-slate-200 px-6 py-4 focus:border-blue-600 outline-none transition-all" placeholder="Corporate Email" />
-                      <textarea  className="w-full bg-white border border-slate-200 px-6 py-4 focus:border-blue-600 outline-none transition-all" placeholder="Technical Requirements..."></textarea>
-                      <button className="w-full bg-blue-600 text-white py-6 font-black uppercase tracking-widest hover:bg-blue-700 transition-all">Submit Brief</button>
-                    </form>
+
+                  <div className="reveal">
+                    {formStatus === 'success' ? (
+                      <div className="bg-blue-600 p-12 text-white h-full flex flex-col justify-center items-center text-center">
+                        <CheckCircle2 size={80} className="mb-6" />
+                        <h4 className="text-4xl font-black uppercase tracking-tighter mb-4">Transmission Received</h4>
+                        <p className="text-blue-100 text-lg">Our architects have been notified. A representative will contact you shortly.</p>
+                        <button onClick={() => setFormStatus(null)} className="mt-8 border border-white/30 px-8 py-4 uppercase font-black tracking-widest text-xs hover:bg-white hover:text-blue-600 transition-all">Send Another</button>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleFormSubmit} className="space-y-8 p-12 bg-slate-950 text-white shadow-2xl">
+                        <div className="grid md:grid-cols-2 gap-8">
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Full Name</label>
+                            <input required type="text" className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Organization</label>
+                            <input type="text" className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Professional Email</label>
+                          <input required type="email" className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Nature of Inquiry</label>
+                          <select className="w-full bg-slate-900 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors">
+                            <option className="bg-slate-900">Custom Software Engineering</option>
+                            <option className="bg-slate-900">Infrastructure Scalability</option>
+                            <option className="bg-slate-900">Strategic Web Design</option>
+                            <option className="bg-slate-900">Cybersecurity Audit</option>
+                          </select>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Project Brief</label>
+                          <textarea required  className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors resize-none"></textarea>
+                        </div>
+                        <button disabled={formStatus === 'sending'} className="w-full bg-blue-600 hover:bg-blue-700 py-6 font-black uppercase tracking-[0.3em] flex items-center justify-center group transition-all">
+                          {formStatus === 'sending' ? 'TRANSMITTING...' : 'INITIATE PROJECT'}
+                          <Send className="ml-3 group-hover:translate-x-2 transition-transform" size={18} />
+                        </button>
+                      </form>
+                    )}
                   </div>
+                </div>
+              </div>
+            </section>
+            
+            {/* FAQ / Support Section */}
+            <section className="py-32 bg-slate-50">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="text-center mb-20 reveal">
+                   <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Support</h2>
+                   <h3 className="text-5xl font-black text-slate-900 uppercase tracking-tighter">Strategic FAQ.</h3>
+                </div>
+                <div className="grid md:grid-cols-2 gap-8">
+                  {[
+                    { q: "How quickly can we start a project?", a: "Typically, we can initiate a discovery phase within 10-14 business days of contract finalization." },
+                    { q: "Do you offer post-launch maintenance?", a: "Yes, our infrastructure solutions include 24/7 monitoring and tiered support packages." },
+                    { q: "Can you work with existing legacy systems?", a: "Absolutely. Our specialized integration team excels at bridging legacy tech with modern, scalable architectures." },
+                    { q: "What is your pricing structure?", a: "We work primarily on a project-based value model, ensuring total transparency on deliverables and ROI." }
+                  ].map((faq, i) => (
+                    <div key={i} className="p-10 bg-white border border-slate-200 reveal">
+                      <div className="flex items-center space-x-4 mb-4">
+                        <MessageSquare className="text-blue-600" size={20} />
+                        <h4 className="text-lg font-black uppercase tracking-tight">{faq.q}</h4>
+                      </div>
+                      <p className="text-slate-600 leading-relaxed">{faq.a}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </section>
           </>
         );
-      default: // HOME PAGE
+      case 'home':
         return (
           <>
-            {/* 1. Hero Section */}
             <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-950">
               <div className="absolute inset-0 z-0">
                 {heroSlides.map((img, idx) => (
                   <div key={idx} className={`absolute inset-0 transition-opacity duration-[2000ms] ${activeSlide === idx ? 'opacity-100' : 'opacity-0'}`}>
                     <div className="absolute inset-0 bg-cover bg-center scale-110 animate-ken-burns" style={{ backgroundImage: `url('${img}')` }}></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
+                    <div className="absolute inset-0 bg-slate-950/80"></div>
                   </div>
                 ))}
               </div>
-              <div className="max-w-7xl mx-auto px-6 relative z-10 w-full pt-20">
-                <div className="max-w-3xl space-y-8">
+              <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+                <div className="max-w-4xl space-y-8 pt-20">
                   <div className="flex items-center space-x-4 reveal active">
                     <div className="h-[2px] w-12 bg-blue-600"></div>
-                    <span className="text-blue-500 font-black uppercase tracking-[0.3em] text-xs">Innovation Meets Governance</span>
+                    //<span className="text-blue-500 font-black uppercase tracking-[0.3em] text-xs">Innovation and Excellence</span>
                   </div>
-                  <h1 className="text-4xl md:text-6xl font-black text-white leading-none tracking-tighter reveal active">
-                    REDEFINING <br />
-                    <span className="text-blue-600">SOVEREIGN </span> 
-                    DIGITAL OPS.
+                  <h1 className="text-6xl md:text-6xl font-black text-white leading-none tracking-tighter reveal active">
+                    ENGINEERING <br />
+                    <span className="text-blue-600">IMPACTFUL   </span>
+                    PLATFORMS.
                   </h1>
-                  <p className="text-xl text-slate-300 max-w-xl leading-relaxed reveal active">
-                    We build high-end technical architectures that empower governments and global enterprises to lead with digital independence.
+                  <p className="text-xl text-slate-300 max-w-2xl leading-relaxed reveal active">
+                    At LO Platform, we do more than build digital products; we engineer scalable systems that power growth, efficiency, and transformation.
                   </p>
-                  <button onClick={() => navigateTo('services')} className="bg-blue-600 text-white px-12 py-6 font-black uppercase tracking-widest hover:bg-blue-700 transition-all flex items-center group reveal active">
-                    Discover More <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
-                  </button>
-                </div>
-              </div>
-            </section>
-
-            {/* 2. Services Brief */}
-            <section className="py-32 bg-white">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="text-center mb-24 reveal">
-                  <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Core Capabilities</h2>
-                  <h3 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">Professional Services.</h3>
-                  <div className="w-24 h-1.5 bg-blue-600 mx-auto mt-8"></div>
-                </div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-l border-slate-100">
-                  {services.map((s, i) => (
-                    <div key={i} className="group p-12 border-r border-b border-slate-100 hover:bg-slate-950 transition-all duration-500 reveal">
-                      <div className="w-16 h-16 bg-slate-100 flex items-center justify-center mb-10 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
-                        {s.icon}
-                      </div>
-                      <span className="text-blue-600 text-xs font-black uppercase tracking-widest mb-4 block group-hover:text-blue-400">{s.tag}</span>
-                      <h4 className="text-2xl font-black text-slate-900 mb-6 group-hover:text-white transition-colors">{s.title}</h4>
-                      <p className="text-slate-500 leading-relaxed group-hover:text-slate-400 transition-colors">{s.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-20 text-center reveal">
-                  <button onClick={() => navigateTo('services')} className="px-12 py-5 border-2 border-slate-900 text-slate-900 font-black uppercase tracking-widest text-xs hover:bg-slate-900 hover:text-white transition-all">Explore All Services</button>
-                </div>
-              </div>
-            </section>
-
-            {/* 3. Team Brief */}
-            <section className="py-32 bg-slate-50">
-              <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
-                <div className="reveal">
-                  <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Elite Talent</h2>
-                  <h3 className="text-5xl font-black text-slate-900 mb-8 leading-tight uppercase">Technical Architects at the Core.</h3>
-                  <p className="text-lg text-slate-600 mb-10 leading-relaxed">Our team consists of senior engineers and strategic consultants with decades of experience in security and systems design.</p>
-                  <button onClick={() => navigateTo('team')} className="flex items-center text-blue-600 font-black uppercase tracking-widest text-xs group">
-                    Meet the Team <ArrowRight size={14} className="ml-3 group-hover:translate-x-2 transition-all" />
-                  </button>
-                </div>
-                <div className="grid grid-cols-2 gap-4 reveal">
-                  {team.slice(0, 4).map((m, i) => (
-                    <div key={i} className="aspect-square bg-slate-200 overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                      <img src={m.img} className="w-full h-full object-cover" alt="" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* 4. Gallery Brief */}
-            <section className="py-32 bg-white">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
-                  <div>
-                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Work Portfolio</h2>
-                    <h3 className="text-4xl md:text-6xl font-black text-slate-900 uppercase tracking-tighter">Recent Impacts.</h3>
-                  </div>
-                  <button onClick={() => navigateTo('gallery')} className="px-12 py-5 bg-slate-950 text-white font-black uppercase tracking-widest text-xs hover:bg-blue-600 transition-all">View All Work</button>
-                </div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {galleryItems.map((item, i) => (
-                    <div key={i} className="group relative aspect-square overflow-hidden reveal">
-                      <img src={item.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="" />
-                      <div className="absolute inset-0 bg-blue-600/90 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-all duration-500 p-8 text-center">
-                        <span className="text-white/80 text-[10px] font-black uppercase tracking-widest mb-2">{item.cat}</span>
-                        <h4 className="text-xl font-black text-white uppercase">{item.title}</h4>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* 5. Blog Brief */}
-            <section className="py-32 bg-slate-950 text-white overflow-hidden">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid lg:grid-cols-3 gap-20">
-                  <div className="reveal">
-                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Intellectual Edge</h2>
-                    <h3 className="text-5xl font-black text-white uppercase leading-none mb-8">Digital <br/> Insights.</h3>
-                    <button onClick={() => navigateTo('blog')} className="text-blue-600 font-black uppercase tracking-widest text-xs flex items-center group">
-                      View Resources <ArrowRight size={14} className="ml-3 group-hover:translate-x-2 transition-all" />
+                  <div className="flex flex-col sm:flex-row gap-4 reveal active">
+                    <button onClick={() => navigateTo('about')} className="bg-blue-600 text-white px-12 py-6 font-black uppercase tracking-widest hover:bg-blue-700 transition-all flex items-center group">
+                      Our Foundation <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
+                    </button>
+                    <button onClick={() => navigateTo('services')} className="border border-white/20 text-white px-12 py-6 font-black uppercase tracking-widest hover:bg-white hover:text-slate-950 transition-all">
+                      Our Solutions
                     </button>
                   </div>
-                  <div className="lg:col-span-2 grid md:grid-cols-2 gap-12">
-                    {blogPosts.map((post, i) => (
-                      <div key={i} className="space-y-6 reveal">
-                        <span className="text-blue-600 text-[10px] font-black uppercase tracking-widest">{post.date}</span>
-                        <h4 className="text-2xl font-black uppercase leading-tight hover:text-blue-600 transition-colors cursor-pointer" onClick={() => navigateTo('blog')}>{post.title}</h4>
-                        <p className="text-slate-400 line-clamp-3">{post.excerpt}</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Our Mission Section - Replaces New Vision */}
+            <section className="py-24 bg-white border-b border-slate-100">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="grid lg:grid-cols-12 gap-12 items-center">
+                  <div className="lg:col-span-8 reveal">
+                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-6 flex items-center">
+                       <Target className="mr-2 w-4 h-4 fill-blue-600 text-blue-600" /> Our Mission
+                    </h2>
+                  <h1 className="text-6xl md:text-6xl font-black text-black leading-none tracking-tighter reveal active">
+                    Beyond Digital <br />
+                    <span className="text-blue-600">Products.</span> <br />
+                    
+                  </h1>
+                    <p className="text-xl text-black max-w-2xl leading-relaxed reveal active">
+                      We work closely with our clients to translate vision and ideas into powerful digital experiences that serve real-world needs. From concept to deployment, our team ensures every solution is aligned with your goals.
+                    </p>
+                  </div>
+                  <div className="lg:col-span-4 reveal">
+                    <div className="p-8 bg-slate-50 border-l-4 border-blue-600">
+                      <p className="text-slate-600 text-lg leading-relaxed font-medium">
+                        From concept to deployment, our team ensures every solution is aligned with your goals.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-16 text-left reveal p-8">
+                  <button onClick={() => navigateTo('about')} className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 border-b-2 border-blue-600 pb-2 hover:text-slate-900 hover:border-slate-900 transition-all">
+                    Explore More
+                  </button>
+                </div>
+            </section>
+
+            <section className="py-12 bg-blue-600">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                  {stats.map((stat, i) => (
+                    <div key={i} className="text-white reveal">
+                      <div className="text-4xl font-black tracking-tighter mb-1">{stat.value}</div>
+                      <div className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="py-32 bg-white">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border border-slate-200">
+                  {services.map((s, i) => (
+                    <div key={i} className="bg-white p-12 hover:bg-blue-600 group transition-all duration-500 reveal">
+                      <div className="text-blue-600 group-hover:text-white mb-8 transition-colors">{s.icon}</div>
+                      <h4 className="text-xl font-black text-slate-900 group-hover:text-white uppercase mb-4 transition-colors leading-tight">{s.title}</h4>
+                      <p className="text-slate-500 group-hover:text-white/80 text-sm transition-colors">{s.short}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-16 text-center reveal">
+                  <button onClick={() => navigateTo('services')} className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 border-b-2 border-blue-600 pb-2 hover:text-slate-900 hover:border-slate-900 transition-all">
+                    Explore Our Strategic Framework
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            {/* Work Portfolio Section */}
+            <section className="py-32 bg-slate-50">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
+                  <div className="max-w-2xl">
+                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Case Studies</h2>
+                    <h3 className="text-5xl font-black text-slate-900 uppercase tracking-tighter">Strategic Portfolio.</h3>
+                  </div>
+                  <button className="text-[10px] font-black uppercase tracking-widest border-b-2 border-blue-600 pb-2 hover:text-blue-600 transition-colors">
+                    View All Works
+                  </button>
+                </div>
+                <div className="grid lg:grid-cols-3 gap-8">
+                  {portfolio.map((item, i) => (
+                    <div key={i} className="group cursor-pointer reveal">
+                      <div className="aspect-[4/5] overflow-hidden mb-8 relative">
+                        <img src={item.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" alt={item.title} />
+                        <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      </div>
+                      <div className="text-blue-600 text-[10px] font-black uppercase tracking-widest mb-2">{item.category}</div>
+                      <h4 className="text-2xl font-black text-slate-900 uppercase tracking-tighter mb-4 group-hover:text-blue-600 transition-colors">{item.title}</h4>
+                      <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Our Team Homepage Section */}
+            <section className="py-32 bg-white">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                  <div className="grid grid-cols-2 gap-4 reveal">
+                    {team.slice(0, 3).map((member, i) => (
+                      <div key={i} className={`aspect-square relative overflow-hidden ${i === 2 ? 'col-span-2' : ''}`}>
+                        <img src={member.img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" alt={member.name} />
                       </div>
                     ))}
                   </div>
+                  <div className="space-y-8 reveal">
+                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm">The Personnel</h2>
+                    <h3 className="text-5xl font-black text-slate-900 uppercase tracking-tighter">Expert Minds. <br />Focused Mission.</h3>
+                    <p className="text-xl text-slate-500 leading-relaxed">
+                      Our team consists of high-level architects, security experts, and designers who share a singular vision: engineering digital infrastructure that scales with purpose.
+                    </p>
+                    <button onClick={() => navigateTo('about')} className="bg-slate-950 text-white px-10 py-5 font-black uppercase tracking-widest text-[10px] hover:bg-blue-600 transition-all">
+                      Meet the Team
+                    </button>
+                  </div>
                 </div>
               </div>
             </section>
 
-            {/* 6. Contact Brief */}
-            <section className="py-32 bg-white">
-              <div className="max-w-7xl mx-auto px-6 bg-slate-900 p-16 md:p-32 relative reveal overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[120px]"></div>
-                <div className="relative z-10 text-center max-w-3xl mx-auto space-y-12">
-                  <h3 className="text-5xl md:text-7xl font-black text-white uppercase leading-none tracking-tighter">Ready for <br/> Sovereign <span className="text-blue-600">Ops?</span></h3>
-                  <p className="text-xl text-slate-400">Scale your infrastructure with a team that understands the intersection of security and performance.</p>
-                  <button onClick={() => navigateTo('contact')} className="bg-white text-slate-900 px-16 py-8 font-black uppercase tracking-widest text-sm hover:bg-blue-600 hover:text-white transition-all shadow-2xl">Start Collaboration</button>
-                </div>
-              </div>
+            {/* Testimonials Section */}
+            <section className="py-32 bg-slate-950 text-white relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-600/5 -skew-x-12 translate-x-20"></div>
+               <div className="max-w-7xl mx-auto px-6 relative z-10">
+                 <div className="text-center mb-24 reveal">
+                   <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Validation</h2>
+                   <h3 className="text-5xl font-black uppercase tracking-tighter">Client Impact.</h3>
+                 </div>
+                 <div className="grid md:grid-cols-2 gap-12">
+                   {testimonials.map((t, i) => (
+                     <div key={i} className="bg-white/5 p-12 border border-white/10 hover:border-blue-600 transition-colors reveal">
+                       <Quote className="text-blue-600 mb-8" size={40} />
+                       <p className="text-2xl font-medium leading-relaxed mb-10 italic">"{t.quote}"</p>
+                       <div className="flex items-center space-x-4">
+                         <img src={t.img} className="w-14 h-14 rounded-full grayscale" alt={t.author} />
+                         <div>
+                           <div className="font-black uppercase tracking-widest text-sm">{t.author}</div>
+                           <div className="text-blue-600 text-[10px] font-black uppercase tracking-[0.2em]">{t.org}</div>
+                         </div>
+                       </div>
+                     </div>
+                   ))}
+                 </div>
+               </div>
             </section>
           </>
         );
+      default:
+        return <section className="py-40 text-center"><h2 className="text-4xl font-black uppercase">Coming Soon</h2></section>;
     }
   };
 
-  return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
-      {/* Top Bar */}
-      <div className="hidden lg:block bg-slate-950 text-white/60 py-2 text-xs border-b border-white/5 relative z-[60]">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center font-bold tracking-widest uppercase">
-          <div className="flex space-x-6">
-            <span>Support: +1 (555) 000-LO-PL</span>
-            <span>Email: systems@loplatform.tech</span>
-          </div>
-          <div className="flex space-x-4">
-            <X size={14} className="hover:text-blue-400 cursor-pointer transition-colors" />
-            <X size={14} className="hover:text-blue-400 cursor-pointer transition-colors" />
-          </div>
-        </div>
-      </div>
+  const customStyles = `
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+    body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+    .animate-ken-burns { animation: ken-burns 15s ease-out infinite alternate; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #2563eb; }
+    select { appearance: none; -webkit-appearance: none; }
+  `;
 
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'bg-white shadow-xl py-3' : 'bg-transparent lg:mt-10 py-6'}`}>
+  return (
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden">
+      <style dangerouslySetInnerHTML={{ __html: customStyles }} />
+      <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'bg-white shadow-xl py-4' : 'bg-transparent lg:mt-10 py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <button onClick={() => navigateTo('home')} className="flex items-center space-x-3 group outline-none">
-            <div className="w-12 h-12 bg-blue-600 flex items-center justify-center transition-all duration-500 group-hover:rotate-90">
-              <span className="text-white font-black text-2xl">L</span>
+            <div className="w-32 h-10  flex items-center justify-center transition-all duration-500 group-hover:rotate-90">
+          <img
+            src={logo.src}
+            alt="Logo"
+            width={800}           // Tells Next.js to provide a high-res version for full width
+                 height={500}         // Good for images at the top of the page
+          />
             </div>
             <span className={`text-2xl font-black tracking-tighter transition-colors ${scrolled || currentPage !== 'home' ? 'text-slate-900' : 'text-slate-900 lg:text-white'}`}>
-              LO<span className="text-blue-600">PLATFORM.</span>
+              <span className="text-blue-600">PLATFORMS.</span>
             </span>
           </button>
 
           <div className="hidden lg:flex items-center space-x-10">
-            {['Home', 'Services', 'Team', 'Gallery', 'Blog', 'Contact'].map((item) => (
+            {[
+              { label: 'Home', id: 'home' },
+              { label: 'About', id: 'about' },
+              { label: 'Services', id: 'services' },
+              { label: 'Contact', id: 'contact' }
+            ].map((item) => (
               <button 
-                key={item} 
-                onClick={() => navigateTo(item.toLowerCase())}
-                className={`text-sm font-black uppercase tracking-widest transition-all hover:text-blue-600 relative group/link ${scrolled || currentPage !== 'home' ? 'text-slate-600' : 'text-slate-900 lg:text-white'} ${currentPage === item.toLowerCase() ? 'text-blue-600' : ''}`}
+                key={item.id} 
+                onClick={() => navigateTo(item.id)}
+                className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:text-blue-600 relative group/link ${scrolled || currentPage !== 'home' ? 'text-slate-600' : 'text-slate-900 lg:text-white'} ${currentPage === item.id ? 'text-blue-600' : ''}`}
               >
-                {item}
-                <span className={`absolute -bottom-2 left-0 h-0.5 bg-blue-600 transition-all ${currentPage === item.toLowerCase() ? 'w-full' : 'w-0 group-hover/link:w-full'}`}></span>
+                {item.label}
+                <span className={`absolute -bottom-2 left-0 h-0.5 bg-blue-600 transition-all ${currentPage === item.id ? 'w-full' : 'w-0 group-hover/link:w-full'}`}></span>
               </button>
             ))}
-            <button 
-                onClick={() => navigateTo('contact')}
-                className="bg-blue-600 text-white px-8 py-3 text-sm font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 active:scale-95">
-              Hire Us
-            </button>
           </div>
 
           <button className="lg:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -465,67 +656,60 @@ const App = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center text-center p-6 lg:hidden">
+        <div className="fixed inset-0 z-[110] bg-slate-950 flex flex-col items-center justify-center text-center p-6 lg:hidden">
           <button className="absolute top-8 right-8 text-white" onClick={() => setIsMenuOpen(false)}><X size={40} /></button>
-          {['Home', 'Services', 'Team', 'Gallery', 'Blog', 'Contact'].map((item) => (
-            <button key={item} onClick={() => navigateTo(item.toLowerCase())} className="text-3xl font-black text-white uppercase tracking-tighter mb-8 hover:text-blue-600">{item}</button>
+          {['Home', 'About', 'Services', 'Contact'].map((item) => (
+            <button key={item} onClick={() => navigateTo(item.toLowerCase())} className="text-3xl font-black text-white uppercase tracking-tighter mb-8 hover:text-blue-600 transition-colors">{item}</button>
           ))}
         </div>
       )}
 
-      {/* Main Page Content */}
       <main>
         {renderContent()}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-950 text-white pt-32 pb-12">
+      <footer className="bg-slate-950 text-white pt-32 pb-12 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-4 gap-16 mb-32">
             <div className="lg:col-span-2 space-y-10">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-blue-600 flex items-center justify-center">
-                  <span className="text-white font-black text-2xl">L</span>
+                <div className="w-12 h-12 flex items-center justify-center">
+                  {/* <span className="text-white font-black text-2xl">L</span> */}
+                  <Image
+                      src={logo}
+                      alt="Picture of the author"
+                      // width and height are handled automatically for local imports
+                    />
                 </div>
                 <span className="text-3xl font-black tracking-tighter uppercase">LO<span className="text-blue-600">Platform.</span></span>
               </div>
               <p className="text-xl text-slate-400 max-w-lg leading-relaxed">
-                Leading technical engineering firm specialized in sovereign systems and high-scale organizational infrastructure.
+                Engineering scalable systems that power growth, efficiency, and transformation for the world's most vital organizations.
               </p>
             </div>
             <div className="space-y-10">
-              <h5 className="font-black uppercase tracking-widest text-sm text-blue-600">Company</h5>
-              <ul className="space-y-4 text-slate-400 text-sm">
-                <li><button onClick={() => navigateTo('services')} className="hover:text-white transition-colors">Services</button></li>
-                <li><button onClick={() => navigateTo('team')} className="hover:text-white transition-colors">Expert Team</button></li>
-                <li><button onClick={() => navigateTo('gallery')} className="hover:text-white transition-colors">Work Gallery</button></li>
+              <h5 className="font-black uppercase tracking-widest text-sm text-blue-600">Explore</h5>
+              <ul className="space-y-4 text-slate-400 text-sm font-bold uppercase tracking-widest">
+                <li><button onClick={() => navigateTo('about')} className="hover:text-white transition-colors">Foundation</button></li>
+                <li><button onClick={() => navigateTo('services')} className="hover:text-white transition-colors">Solutions</button></li>
+                <li><button onClick={() => navigateTo('contact')} className="hover:text-white transition-colors">Contact</button></li>
               </ul>
             </div>
             <div className="space-y-10">
-              <h5 className="font-black uppercase tracking-widest text-sm text-blue-600">Quick Contact</h5>
-              <p className="text-white font-bold tracking-widest uppercase text-sm">systems@loplatform.tech</p>
-              <p className="text-slate-400 text-sm">Zurich Science Park, CH</p>
+              <h5 className="font-black uppercase tracking-widest text-sm text-blue-600">Connect</h5>
+              <p className="text-slate-400 text-xs tracking-[0.2em] leading-loose font-bold uppercase">
+                SYSTEMS@LOPLATFORM.TECH <br />
+                SCIENCE PARK, ZURICH <br />
+                DIGITAL DISTRICT, NY
+              </p>
             </div>
           </div>
           <div className="pt-12 border-t border-white/10 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">
-            © 2024 LOPlatform Technical Group. Precision Engineered.
+            © 2026 LOPlatform. Built for Long-term Success.
           </div>
         </div>
       </footer>
-
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        @keyframes ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
-        .animate-ken-burns { animation: ken-burns 12s ease-out infinite alternate; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #2563eb; }
-      `}</style>
     </div>
   );
 };
