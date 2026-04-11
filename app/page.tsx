@@ -33,6 +33,7 @@ const App = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [currentPage, setCurrentPage] = useState('home');
   const [formStatus, setFormStatus] = useState<string | null>(null);
+  const [formData, setFormData] = useState({ name: '', email: '', organisation: '', subject: '', message: '' });
 
   const heroSlides = [
     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80",
@@ -84,9 +85,10 @@ const App = () => {
   ];
 
   const team = [
+    
+    { name: "John Olumutimi", role: "Chief Operations Officer", img: "/john.png" },
+    { name: "Kennie Oyinloye.", role: "Chief Technology Officer", img: "/Kennie.jpg" },
     { name: "Layo Obidike", role: "Chief Executive Officer", img: "/Layo-Obidike.jpg" },
-    { name: "John Oluwole Olumutimi", role: "Chief Operations Officer", img: "/john.png" },
-    { name: "Kehinde", role: "Chief Technology Officer", img: "/kehinde.png" }
   ];
 
   const services = [
@@ -144,13 +146,34 @@ const App = () => {
     setIsMenuOpen(false);
   };
 
-  const handleFormSubmit = (e:any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = async(e:any) => {
     e.preventDefault();
     setFormStatus('sending');
-    setTimeout(() => {
+        try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
         setFormStatus('success');
-    }, 1500);
+        setFormData({ name: '', email: '', organisation: '', subject: '', message: '' }); // Clear form
+      } else {
+        setFormStatus('error');
+      }
+    } catch (error) {
+      console.error('Submission Error:', error);
+      setFormStatus('error');
+    }
   };
+  
 
   const PageHeader = ({ title, subtitle }: { title: any; subtitle: any }) => (
     <section className="pt-48 pb-20 bg-slate-950 relative overflow-hidden">
@@ -343,7 +366,7 @@ const App = () => {
                       <div className="bg-blue-600 p-12 text-white h-full flex flex-col justify-center items-center text-center">
                         <CheckCircle2 size={80} className="mb-6" />
                         <h4 className="text-4xl font-black uppercase tracking-tighter mb-4">Transmission Received</h4>
-                        <p className="text-blue-100 text-lg">Our architects have been notified. A representative will contact you shortly.</p>
+                        <p className="text-blue-100 text-lg">Our Engineers have been notified. A representative will contact you shortly.</p>
                         <button onClick={() => setFormStatus(null)} className="mt-8 border border-white/30 px-8 py-4 uppercase font-black tracking-widest text-xs hover:bg-white hover:text-blue-600 transition-all">Send Another</button>
                       </div>
                     ) : (
@@ -351,20 +374,41 @@ const App = () => {
                         <div className="grid md:grid-cols-2 gap-8">
                           <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Full Name</label>
-                            <input required type="text" className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
+                            <input required type="text" 
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
                           </div>
                           <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Organization</label>
-                            <input type="text" className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
+                            <input type="text" 
+                                id="organisation"
+                                name="organisation"
+                                value={formData.organisation}
+                                onChange={handleChange}
+                                className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
                           </div>
                         </div>
                         <div className="space-y-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Professional Email</label>
-                          <input required type="email" className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
+                          <input required type="email" 
+                              id="email"
+                              name="email"
+                              value={formData.email}
+                              onChange={handleChange}
+                              className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
                         </div>
                         <div className="space-y-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Nature of Inquiry</label>
-                          <select className="w-full bg-slate-900 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors">
+                          <select 
+                            id="subject"
+                            name="subject"
+                            value={formData.subject}
+                            onChange={handleChange}
+                            className="w-full bg-slate-900 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors"
+                              >
                             <option className="bg-slate-900">Custom Software Engineering</option>
                             <option className="bg-slate-900">Infrastructure Scalability</option>
                             <option className="bg-slate-900">Strategic Web Design</option>
@@ -373,7 +417,12 @@ const App = () => {
                         </div>
                         <div className="space-y-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Project Brief</label>
-                          <textarea required  className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors resize-none"></textarea>
+                          <textarea required 
+                            id="message"
+                            name="message"
+                            value={formData.message}
+                            onChange={handleChange}
+                            className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors resize-none"></textarea>
                         </div>
                         <button disabled={formStatus === 'sending'} className="w-full bg-blue-600 hover:bg-blue-700 py-6 font-black uppercase tracking-[0.3em] flex items-center justify-center group transition-all">
                           {formStatus === 'sending' ? 'TRANSMITTING...' : 'INITIATE PROJECT'}
