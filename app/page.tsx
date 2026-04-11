@@ -304,7 +304,7 @@ const App = () => {
                   <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto">
                     Partner with LO Platform to create digital solutions that are not only innovative, but impactful, scalable, and built for growth.
                   </p>
-                  <button className="bg-slate-950 text-white px-12 py-6 font-black uppercase tracking-widest text-sm hover:bg-white hover:text-slate-950 transition-all">
+                  <button onClick={() => navigateTo('contact')}  className="bg-slate-950 text-white px-12 py-6 font-black uppercase tracking-widest text-sm hover:bg-white hover:text-slate-950 transition-all">
                     Contact Our Architects
                   </button>
                 </div>
@@ -525,12 +525,13 @@ const App = () => {
                     </div>
                   </div>
                 </div>
+              
+                  <div className="mt-16 text-left reveal p-8 ">
+                      <button onClick={() => navigateTo('about')} className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 border-b-2 border-blue-600 pb-2 hover:text-slate-900 hover:border-slate-900 transition-all">
+                        Explore More
+                      </button>
+                    </div>
               </div>
-              <div className="mt-16 text-left reveal p-8">
-                  <button onClick={() => navigateTo('about')} className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 border-b-2 border-blue-600 pb-2 hover:text-slate-900 hover:border-slate-900 transition-all">
-                    Explore More
-                  </button>
-                </div>
             </section>
 
             <section className="py-12 bg-blue-600">
@@ -750,9 +751,9 @@ const App = () => {
             <div className="space-y-10">
               <h5 className="font-black uppercase tracking-widest text-sm text-blue-600">Connect</h5>
               <p className="text-slate-400 text-xs tracking-[0.2em] leading-loose font-bold uppercase">
-                SYSTEMS@LOPLATFORM.TECH <br />
-                SCIENCE PARK, ZURICH <br />
-                DIGITAL DISTRICT, NY
+                support@loplatform.com <br />
+                11, Ogunmefun street Gbagada Lagos, Nigeria<br />
+                +234 701 187 1220
               </p>
             </div>
           </div>
