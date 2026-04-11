@@ -1,7 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import logo from '../public/logo.png';
+// import logo from '../public/logo.png';
+// import logo from "../public/"
 import { 
   Monitor, 
   Smartphone, 
@@ -83,9 +84,9 @@ const App = () => {
   ];
 
   const team = [
-    { name: "Julian Voss", role: "Chief Architect", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=400&q=80" },
-    { name: "Aria Thorne", role: "Head of Infrastructure", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&h=400&q=80" },
-    { name: "Kaelen Chen", role: "Design Director", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&h=400&q=80" }
+    { name: "Layo Obidike", role: "Chief Executive Officer", img: "/Layo-Obidike.jpg" },
+    { name: "John Oluwole Olumutimi", role: "Chief Operations Officer", img: "/john.png" },
+    { name: "Kehinde", role: "Chief Technology Officer", img: "/kehinde.png" }
   ];
 
   const services = [
@@ -306,7 +307,7 @@ const App = () => {
                         </div>
                         <div>
                           <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Email Our Team</p>
-                          <p className="text-2xl font-black text-slate-900">SYSTEMS@LOPLATFORM.TECH</p>
+                          <p className="text-2xl font-black text-slate-900">Support@loplatforms.com</p>
                         </div>
                       </div>
                       <div className="flex items-start space-x-6 group">
@@ -314,8 +315,8 @@ const App = () => {
                           <MapPin size={24} />
                         </div>
                         <div>
-                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Global HQ</p>
-                          <p className="text-2xl font-black text-slate-900">SCIENCE PARK, ZURICH, CH</p>
+                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Office</p>
+                          <p className="text-2xl font-black text-slate-900">11, Ogunmefun street Gbagada Lagos, Nigeria</p>
                         </div>
                       </div>
                       <div className="flex items-start space-x-6 group">
@@ -324,7 +325,7 @@ const App = () => {
                         </div>
                         <div>
                           <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Direct Line</p>
-                          <p className="text-2xl font-black text-slate-900">+41 44 200 1000</p>
+                          <p className="text-2xl font-black text-slate-900">+234 701 187 1220</p>
                         </div>
                       </div>
                     </div>
@@ -620,11 +621,11 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <button onClick={() => navigateTo('home')} className="flex items-center space-x-3 group outline-none">
             <div className="w-32 h-10  flex items-center justify-center transition-all duration-500 group-hover:rotate-90">
-          <img
-            src={logo.src}
+         <Image
+            src="/logo.png" // Next.js looks directly into the 'public' folder
             alt="Logo"
-            width={800}           // Tells Next.js to provide a high-res version for full width
-                 height={500}         // Good for images at the top of the page
+            width={500}
+            height={500}
           />
             </div>
             <span className={`text-2xl font-black tracking-tighter transition-colors ${scrolled || currentPage !== 'home' ? 'text-slate-900' : 'text-slate-900 lg:text-white'}`}>
@@ -677,10 +678,11 @@ const App = () => {
                 <div className="w-12 h-12 flex items-center justify-center">
                   {/* <span className="text-white font-black text-2xl">L</span> */}
                   <Image
-                      src={logo}
-                      alt="Picture of the author"
-                      // width and height are handled automatically for local imports
-                    />
+                        src="/logo.png" // Next.js looks directly into the 'public' folder
+                        alt="Logo"
+                        width={500}
+                        height={500}
+                      />
                 </div>
                 <span className="text-3xl font-black tracking-tighter uppercase">LO<span className="text-blue-600">Platform.</span></span>
               </div>
