@@ -1,8 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-// import logo from '../public/logo.png';
-// import logo from "../public/"
+
 import { 
   Monitor, 
   Smartphone, 
@@ -86,9 +85,9 @@ const App = () => {
 
   const team = [
     
-    { name: "John Olumutimi", role: "Chief Operations Officer", img: "/john.png" },
+    { name: "John Olumutimi", role: "Chief Operations Officer", img: "/john_2.png" },
     { name: "Kennie Oyinloye.", role: "Chief Technology Officer", img: "/Kennie.jpg" },
-    { name: "Layo Obidike", role: "Chief Executive Officer", img: "/Layo-Obidike.jpg" },
+    { name: "Layo Obidike", role: "Chief Executive Officer", img: "/layo.jpeg" },
   ];
 
   const services = [
@@ -247,7 +246,7 @@ const App = () => {
                   {team.map((member, i) => (
                     <div key={i} className="bg-white p-12 group reveal">
                       <div className="aspect-square overflow-hidden mb-8 grayscale group-hover:grayscale-0 transition-all duration-700">
-                        <img src={member.img} alt={member.name} className="w-full h-full object-cover" />
+                        <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top" />
                       </div>
                       <h4 className="text-2xl font-black text-slate-900 uppercase tracking-tighter">{member.name}</h4>
                       <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-6">{member.role}</p>
@@ -601,7 +600,7 @@ const App = () => {
                   <div className="grid grid-cols-2 gap-4 reveal">
                     {team.slice(0, 3).map((member, i) => (
                       <div key={i} className={`aspect-square relative overflow-hidden ${i === 2 ? 'col-span-2' : ''}`}>
-                        <img src={member.img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" alt={member.name} />
+                        <img src={member.img} className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500" alt={member.name} />
                       </div>
                     ))}
                   </div>
