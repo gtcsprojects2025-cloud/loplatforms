@@ -92,26 +92,30 @@ const App = () => {
 
   const services = [
     { 
-      title: "Web Design", 
+      title: "Website Design", 
       icon: <Monitor className="w-8 h-8" />, 
+      src: '/website_design_2.jpeg',
       short: "Attractive websites that perform and bring results.",
       description: "Our web design approach focuses on creating visually engaging, user-centered experiences that communicate your brand clearly and convert visitors into customers. From layout to interaction, every element is carefully crafted to ensure clarity, responsiveness, and seamless navigation across all devices. We don't just design pages; we create experiences that leave lasting impressions." 
     },
     { 
       title: "Web App Development", 
       icon: <Layers className="w-8 h-8" />, 
+      src:'/web_dev.jpeg',
       short: "Powerful systems that streamline productivity and growth.",
       description: "We build secure, scalable, and high-performing web applications tailored to your specific operational needs. Whether it's internal systems, customer platforms, or enterprise solutions, we ensure every application is built with precision and future scalability in mind. We transform complex ideas into intelligent digital systems that work efficiently and reliably." 
     },
     { 
       title: "Mobile App Development", 
       icon: <Smartphone className="w-8 h-8" />, 
+      src:'/mobileApp.jpeg',
       short: "Seamless user experiences across iOS and Android.",
       description: "Our mobile solutions are designed to provide seamless user experiences across iOS and Android platforms, combining intuitive interfaces with strong backend performance. From concept to launch, we build apps that are fast, reliable, and optimized to meet your business goals while keeping users at the center of every interaction." 
     },
     { 
       title: "Technical Infrastructure", 
       icon: <Database className="w-8 h-8" />, 
+      src:'/IT_Infra.jpeg',
       short: "Reliable technical backbone for organizations and ministries.",
       description: "We deliver structured, reliable, and future-ready technology frameworks designed to support communication, data management, automation, and scalability. Whether you are building from the ground up or optimizing existing systems, our infrastructure solutions ensure your operations run smoothly and securely, empowering your mission and enhancing your reach." 
     }
@@ -291,8 +295,10 @@ const App = () => {
                       <div className={`bg-slate-100 aspect-video relative overflow-hidden ${i % 2 !== 0 ? 'lg:order-1' : ''}`}>
                          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-slate-950/20"></div>
                          <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                            <Layers size={120} />
+                            {/* <Layers size={120} /> */}
+                            {/* <img src='/website_design.jpeg' className="w-14 h-14 rounded-full grayscale" alt='Website Design' /> */}
                          </div>
+                         <img src={s.src} className="w-full h-full" alt={s.title} />
                       </div>
                     </div>
                   ))}
