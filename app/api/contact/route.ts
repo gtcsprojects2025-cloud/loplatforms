@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     // Email content setup
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: 'rolandmario2@gmail.com', // The target email address
+      to: 'layoobidikepublications@gmail.com', // The target email address
       subject: `New Contact Form Submission from LOPlatform Website: ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
