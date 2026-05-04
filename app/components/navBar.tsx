@@ -54,7 +54,7 @@ import {
      
   return(
     < >
-    <style dangerouslySetInnerHTML={{ __html: customStyles }} />
+    {/* <style dangerouslySetInnerHTML={{ __html: customStyles }} /> */}
           <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'bg-white shadow-xl py-4' : 'bg-black lg:mt-0 py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <Link href={'/'} className="flex items-center space-x-3 group outline-none">
