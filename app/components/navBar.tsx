@@ -54,10 +54,10 @@ import {
      
   return(
     < >
-    {/* <style dangerouslySetInnerHTML={{ __html: customStyles }} /> */}
+    <style dangerouslySetInnerHTML={{ __html: customStyles }} />
           <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'bg-white shadow-xl py-4' : 'bg-black lg:mt-0 py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <button onClick={() => navigateTo('home')} className="flex items-center space-x-3 group outline-none">
+          <Link href={'/'} className="flex items-center space-x-3 group outline-none">
             <div className="w-32 h-10  flex items-center justify-center transition-all duration-500 group-hover:rotate-90">
          <Image
             src="/logo.png" // Next.js looks directly into the 'public' folder
@@ -69,7 +69,7 @@ import {
             <span className={`text-2xl font-black tracking-tighter transition-colors ${scrolled || currentPage !== 'home' ? 'text-slate-900' : 'text-slate-900 lg:text-white'}`}>
               <span className="text-blue-600">PLATFORMS</span>
             </span>
-          </button>
+          </Link>
 
           <div className="hidden lg:flex items-center space-x-10">
             {[
