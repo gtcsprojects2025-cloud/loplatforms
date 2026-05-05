@@ -140,7 +140,7 @@ const ITInfrastructure = ()=>{
                     </div>
                   </div>
                 </section>
-                <div className="mt-0 px-20 md:p-24 bg-blue-600 text-white text-center reveal">
+                <div className="mt-0 px-20 md:p-24 bg-blue-600 text-white text-center reveal py-10">
                   <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8">Ready to grow faster?</h3>
                   <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto">
                     Partner with LO Platform to create digital solutions that are not only innovative, but impactful, scalable, and built for growth.
