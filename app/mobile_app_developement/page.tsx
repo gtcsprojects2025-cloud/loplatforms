@@ -115,7 +115,7 @@ const AppDev = ()=>{
                         <div key={i} className="p-10 bg-white border border-slate-200 reveal">
                           <div className="flex items-center space-x-4 mb-4">
                             <MessageSquare className="text-blue-600" size={20} />
-                            <h4 className="text-lg font-black uppercase tracking-tight">{faq.question}</h4>
+                            <h4 className="text-lg font-black uppercase tracking-tight text-black">{faq.question}</h4>
                           </div>
                           <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
                         </div>

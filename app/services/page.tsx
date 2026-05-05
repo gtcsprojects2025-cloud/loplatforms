@@ -33,7 +33,7 @@ const Service = ()=>{
       const services = [
     { 
       title: "Website Design", 
-      route:"/website",
+      route:"/website_design",
       icon: <Monitor className="w-8 h-8" />, 
       src: '/website_design_2.jpeg',
       short: "Attractive websites that perform and bring results.",
@@ -41,7 +41,7 @@ const Service = ()=>{
     },
     { 
       title: "Web App Development", 
-      route:"/webDev",
+      route:"/web_app_developement",
       icon: <Layers className="w-8 h-8" />, 
       src:'/web_dev.jpeg',
       short: "Powerful systems that streamline productivity and growth.",
@@ -49,7 +49,7 @@ const Service = ()=>{
     },
     { 
       title: "Mobile App Development", 
-      route:"/appDev",
+      route:"/mobile_app_developement",
       icon: <Smartphone className="w-8 h-8" />, 
       src:'/mobileApp.jpeg',
       short: "Seamless user experiences across iOS and Android.",
@@ -57,7 +57,7 @@ const Service = ()=>{
     },
     { 
       title: "Technical Infrastructure", 
-      route:"infra",
+      route:"/IT_Infrastructure",
       icon: <Database className="w-8 h-8" />, 
       src:'/IT_Infra.jpeg',
       short: "Reliable technical backbone for organizations and ministries.",
