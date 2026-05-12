@@ -1,60 +1,47 @@
-"use client"
-import React, {useState} from "react";
+"use client";
 
+import React, { useState } from "react";
 import NavBar from "../components/navBar";
 import PageHeader from "../components/pageHeader";
-import { 
-  Monitor, 
-  Smartphone, 
-  Layers, 
-  Database, 
-  Menu, 
-  X, 
-  ArrowRight,
-  Target, 
-  Eye, 
-  ShieldCheck, 
-  Zap, 
-  Star, 
-  Clock, 
-  User, 
-  Quote,
-  CheckCircle2,
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  MessageSquare
-} from 'lucide-react';
 import Footer from "../components/footer";
+import { 
+  Mail, 
+  MapPin, 
+  Phone, 
+  Clock, 
+  Send, 
+  CheckCircle2 
+} from 'lucide-react';
+import Link from 'next/link';
 
-const Contact =()=>{
+const Contact = () => {
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    organisation: '',
+    subject: '',
+    message: ''
+  });
 
-      const [isMenuOpen, setIsMenuOpen] = useState(false);
-      const [scrolled, setScrolled] = useState(false);
-      const [activeSlide, setActiveSlide] = useState(0);
-      const [currentPage, setCurrentPage] = useState('home');
-      const [formStatus, setFormStatus] = useState<string | null>(null);
-      const [formData, setFormData] = useState({ name: '', email: '', organisation: '', subject: '', message: '' });
-    
-const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-          setFormData({ ...formData, [e.target.name]: e.target.value });
-        };
-const handleFormSubmit = async(e:any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-        try {
+
+    try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setFormStatus('success');
-        setFormData({ name: '', email: '', organisation: '', subject: '', message: '' }); // Clear form
+        setFormData({ name: '', email: '', organisation: '', subject: '', message: '' });
       } else {
         setFormStatus('error');
       }
@@ -63,132 +50,185 @@ const handleFormSubmit = async(e:any) => {
       setFormStatus('error');
     }
   };
-    return(
-          <>
-          <NavBar/>
-            <PageHeader title="Connect With Us" subtitle="Start a Conversation" />
-            <section className="py-32 bg-white">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid lg:grid-cols-2 gap-24">
-                  <div className="reveal">
-                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-6">Inquiry</h2>
-                    <h3 className="text-4xl md:text-6xl font-black text-slate-900 uppercase tracking-tighter mb-10 leading-none">Let's build the <br /><span className="text-blue-600 underline decoration-slate-200">future</span> together.</h3>
-                    
-                    <div className="space-y-12 mb-16">
-                      <div className="flex items-start space-x-6 group">
-                        <div className="w-14 h-14 bg-slate-950 flex items-center justify-center text-white group-hover:bg-blue-600 transition-colors">
-                          <Mail size={24} />
-                        </div>
-                        <div>
-                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Email Our Team</p>
-                          <p className="text-2xl font-black text-slate-900">Support@loplatforms.com</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-6 group">
-                        <div className="w-14 h-14 bg-slate-950 flex items-center justify-center text-white group-hover:bg-blue-600 transition-colors">
-                          <MapPin size={24} />
-                        </div>
-                        <div>
-                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Office</p>
-                          <p className="text-2xl font-black text-slate-900">11, Ogunmefun street Gbagada Lagos, Nigeria</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-6 group">
-                        <div className="w-14 h-14 bg-slate-950 flex items-center justify-center text-white group-hover:bg-blue-600 transition-colors">
-                          <Phone size={24} />
-                        </div>
-                        <div>
-                          <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest mb-1">Direct Line</p>
-                          <p className="text-2xl font-black text-slate-900">+234 701 187 1220</p>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className="p-8 border-l-4 border-slate-950 bg-slate-50">
-                      <h5 className="font-black uppercase tracking-widest text-xs mb-4">Availability</h5>
-                      <p className="text-slate-600 leading-relaxed">
-                        Our technical architects are available for consultations Monday through Friday, 09:00 — 18:00 CET. We respond to all inquiries within 24 operational hours.
-                      </p>
-                    </div>
+  const resetForm = () => setFormStatus('idle');
+
+  return (
+    <>
+      <NavBar />
+      <PageHeader title="Connect With Us" subtitle="Start a Conversation" />
+
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+            
+            {/* Contact Information */}
+            <div className="reveal">
+              <div className="mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-tight mb-6">
+                  Let's create something <span className="text-blue-600">extraordinary</span> together
+                </h2>
+                <p className="text-lg text-slate-600">
+                  Whether you have a project in mind or just want to explore possibilities, we're ready to listen.
+                </p>
+              </div>
+
+              <div className="space-y-10">
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <Mail size={24} />
                   </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Email</p>
+                    <a href="mailto:support@loplatforms.com" className="text-xl font-medium hover:text-blue-600 transition-colors">
+                      support@loplatforms.com
+                    </a>
+                  </div>
+                </div>
 
-                  <div className="reveal">
-                    {formStatus === 'success' ? (
-                      <div className="bg-blue-600 p-12 text-white h-full flex flex-col justify-center items-center text-center">
-                        <CheckCircle2 size={80} className="mb-6" />
-                        <h4 className="text-4xl font-black uppercase tracking-tighter mb-4">Transmission Received</h4>
-                        <p className="text-blue-100 text-lg">Our Engineers have been notified. A representative will contact you shortly.</p>
-                        <button onClick={() => setFormStatus(null)} className="mt-8 border border-white/30 px-8 py-4 uppercase font-black tracking-widest text-xs hover:bg-white hover:text-blue-600 transition-all">Send Another</button>
-                      </div>
-                    ) : (
-                      <form onSubmit={handleFormSubmit} className="space-y-8 p-12 bg-slate-950 text-white shadow-2xl">
-                        <div className="grid md:grid-cols-2 gap-8">
-                          <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Full Name</label>
-                            <input required type="text" 
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
-                          </div>
-                          <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Organization</label>
-                            <input type="text" 
-                                id="organisation"
-                                name="organisation"
-                                value={formData.organisation}
-                                onChange={handleChange}
-                                className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Professional Email</label>
-                          <input required type="email" 
-                              id="email"
-                              name="email"
-                              value={formData.email}
-                              onChange={handleChange}
-                              className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors" />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Nature of Inquiry</label>
-                          <select 
-                            id="subject"
-                            name="subject"
-                            value={formData.subject}
-                            onChange={handleChange}
-                            className="w-full bg-slate-900 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors"
-                              >
-                            <option className="bg-slate-900">Custom Software Engineering</option>
-                            <option className="bg-slate-900">Infrastructure Scalability</option>
-                            <option className="bg-slate-900">Strategic Web Design</option>
-                            <option className="bg-slate-900">Cybersecurity Audit</option>
-                          </select>
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Project Brief</label>
-                          <textarea required 
-                            id="message"
-                            name="message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            className="w-full bg-white/5 border-b border-white/20 px-0 py-4 outline-none focus:border-blue-600 transition-colors resize-none"></textarea>
-                        </div>
-                        <button disabled={formStatus === 'sending'} className="w-full bg-blue-600 hover:bg-blue-700 py-6 font-black uppercase tracking-[0.3em] flex items-center justify-center group transition-all">
-                          {formStatus === 'sending' ? 'TRANSMITTING...' : 'INITIATE PROJECT'}
-                          <Send className="ml-3 group-hover:translate-x-2 transition-transform" size={18} />
-                        </button>
-                      </form>
-                    )}
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <Phone size={24} />
+                  </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Phone</p>
+                    <a href="tel:+2347011871220" className="text-xl font-medium hover:text-blue-600 transition-colors">
+                      +234 701 187 1220
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <MapPin size={24} />
+                  </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Office</p>
+                    <p className="text-lg leading-tight">
+                      11, Ogunmefun Street<br />
+                      Gbagada, Lagos, Nigeria
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <Clock size={24} />
+                  </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Business Hours</p>
+                    <p className="text-lg">Monday — Friday, 9:00 AM — 6:00 PM</p>
                   </div>
                 </div>
               </div>
-            </section>
-            
-            <Footer/>
-          </>
-    )
-}
+            </div>
+
+            {/* Contact Form */}
+            <div className="reveal">
+              {formStatus === 'success' ? (
+                <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-12 text-center h-full flex flex-col justify-center">
+                  <CheckCircle2 size={70} className="mx-auto text-emerald-600 mb-6" />
+                  <h3 className="text-3xl font-bold text-slate-900 mb-3">Message Received!</h3>
+                  <p className="text-slate-600 text-lg mb-8">
+                    Thank you. Our team has been notified and will get back to you within 24 hours.
+                  </p>
+                  <button 
+                    onClick={resetForm}
+                    className="mx-auto px-10 py-4 bg-slate-900 text-white rounded-full hover:bg-blue-600 transition-colors"
+                  >
+                    Send Another Message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleFormSubmit} className="bg-white border border-slate-100 shadow-xl rounded-3xl p-10 md:p-12">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">Full Name *</label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-5 py-4 border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">Organization</label>
+                      <input
+                        type="text"
+                        name="organisation"
+                        value={formData.organisation}
+                        onChange={handleChange}
+                        className="w-full px-5 py-4 border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-6">
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Email Address *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-4 border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all"
+                    />
+                  </div>
+
+                  <div className="mt-6">
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Nature of Inquiry</label>
+                    <select
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="w-full px-5 py-4 border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all bg-white"
+                    >
+                      <option value="">Select an option...</option>
+                      <option value="Website Design">Website Design</option>
+                      <option value="Web App Development">Web App Development</option>
+                      <option value="Mobile App Development">Mobile App Development</option>
+                      <option value="Technical Infrastructure">Technical Infrastructure</option>
+                      <option value="Consultation">General Consultation</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="mt-6">
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Project Brief / Message *</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={6}
+                      className="w-full px-5 py-4 border border-slate-200 rounded-3xl focus:border-blue-600 outline-none transition-all resize-y"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={formStatus === 'sending'}
+                    className="mt-10 w-full bg-slate-900 hover:bg-blue-600 text-white py-5 rounded-2xl font-semibold text-lg transition-all flex items-center justify-center gap-3 disabled:opacity-70"
+                  >
+                    {formStatus === 'sending' ? 'Sending Message...' : 'Send Message'}
+                    <Send size={20} />
+                  </button>
+
+                  {formStatus === 'error' && (
+                    <p className="text-red-600 text-center mt-4">Something went wrong. Please try again.</p>
+                  )}
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </>
+  );
+};
 
 export default Contact;

@@ -1,75 +1,81 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
 
-import { 
-  Monitor, 
-  Smartphone, 
-  Layers, 
-  Database, 
-  Menu, 
-  X, 
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import {
+  Monitor,
+  Smartphone,
+  Layers,
+  Database,
   ArrowRight,
-  Target, 
-  Eye, 
-  ShieldCheck, 
-  Zap, 
-  Star, 
-  Clock, 
-  User, 
+  Target,
+  ShieldCheck,
+  Zap,
   Quote,
   CheckCircle2,
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  MessageSquare
-} from 'lucide-react';
-import NavBar from './components/navBar';
-import Footer from './components/footer';
+  Users,
+  TrendingUp,
+  Globe,
+  Briefcase,
+  ChevronRight,
+  Sparkles,
+} from "lucide-react";
 
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [currentPage, setCurrentPage] = useState('home');
-  const [formStatus, setFormStatus] = useState<string | null>(null);
-  const [formData, setFormData] = useState({ name: '', email: '', organisation: '', subject: '', message: '' });
+import NavBar from "./components/navBar";
+import Footer from "./components/footer";
+import HeroSection from "./components/hero";
 
-  const heroSlides = [
-    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80"
+const HomePage = () => {
+  const services = [
+    {
+      title: "Website Design",
+      icon: <Monitor className="w-7 h-7" />,
+      gradient: "from-blue-500 to-indigo-600",
+      short: "Attractive websites that perform and bring results.",
+      features: ["Responsive Design", "SEO Optimized", "Fast Loading"],
+    },
+    {
+      title: "Web App Development",
+      icon: <Layers className="w-7 h-7" />,
+      gradient: "from-purple-500 to-pink-600",
+      short: "Powerful systems that streamline productivity and growth.",
+      features: ["Scalable Architecture", "API Integration", "Real-time Data"],
+    },
+    {
+      title: "Mobile App Development",
+      icon: <Smartphone className="w-7 h-7" />,
+      gradient: "from-emerald-500 to-teal-600",
+      short: "Seamless user experiences across iOS and Android.",
+      features: ["Cross-platform", "Push Notifications", "Offline Mode"],
+    },
+    {
+      title: "Technical Infrastructure",
+      icon: <Database className="w-7 h-7" />,
+      gradient: "from-rose-500 to-orange-600",
+      short: "Reliable technical backbone for organizations.",
+      features: ["Cloud Native", "High Security", "24/7 Monitoring"],
+    },
   ];
-
-  const stats = [
-    { label: "Systems Deployed", value: "250+" },
-    { label: "Uptime Guaranteed", value: "99.9%" },
-    { label: "Users Reached", value: "1.2M" },
-    { label: "Security Audits", value: "100%" }
-  ];
-
 
   const portfolio = [
     {
       title: "Global Ministry Portal",
       category: "Web Infrastructure",
       desc: "A unified CMS and distribution platform serving content to 50+ countries with localized caching.",
-      img: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80"
+      img: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80",
     },
     {
       title: "SecureAuth Enterprise",
       category: "Cybersecurity",
       desc: "High-security biometric authentication bridge for financial and sensitive data environments.",
-      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
+      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
     },
     {
       title: "DataStream Analytics",
       category: "Web App Development",
       desc: "Real-time visualization engine for complex logistical networks and supply chain monitoring.",
-      img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-    }
+      img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    },
   ];
 
   const testimonials = [
@@ -77,286 +83,335 @@ const App = () => {
       quote: "LO Platform didn't just build a website; they engineered a foundational system that transformed how we interact with our global community.",
       author: "David Richardson",
       org: "Director, Global Reach Initiative",
-      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80"
+      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80",
     },
     {
       quote: "Their focus on scalability saved us months of rework when our user base doubled overnight. They build for the future, not just today.",
       author: "Sarah Jenkins",
       org: "CTO, NextStream Media",
-      img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80"
-    }
+      img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+    },
   ];
 
   const team = [
-    
     { name: "John Olumutimi", role: "Chief Operations Officer", img: "/john_2.png" },
-    { name: "Kennie Oyinloye.", role: "Chief Technology Officer", img: "/Kennie.jpg" },
+    { name: "Kennie Oyinloye", role: "Chief Technology Officer", img: "/Kennie.jpg" },
     { name: "Layo Obidike", role: "Chief Executive Officer", img: "/layo.jpeg" },
   ];
 
-    useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      const observers = document.querySelectorAll('.reveal');
-      observers.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.95) {
-          el.classList.add('active');
-        }
-      });
-    };
-    const slideInterval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 6000);
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearInterval(slideInterval);
-    };
-  }, [heroSlides.length, currentPage]);
-
-  const services = [
-    { 
-      title: "Website Design", 
-      icon: <Monitor className="w-8 h-8" />, 
-      src: '/website_design_2.jpeg',
-      short: "Attractive websites that perform and bring results.",
-      description: "Our web design approach focuses on creating visually engaging, user-centered experiences that communicate your brand clearly and convert visitors into customers. From layout to interaction, every element is carefully crafted to ensure clarity, responsiveness, and seamless navigation across all devices. We don't just design pages; we create experiences that leave lasting impressions." 
-    },
-    { 
-      title: "Web App Development", 
-      icon: <Layers className="w-8 h-8" />, 
-      src:'/web_dev.jpeg',
-      short: "Powerful systems that streamline productivity and growth.",
-      description: "We build secure, scalable, and high-performing web applications tailored to your specific operational needs. Whether it's internal systems, customer platforms, or enterprise solutions, we ensure every application is built with precision and future scalability in mind. We transform complex ideas into intelligent digital systems that work efficiently and reliably." 
-    },
-    { 
-      title: "Mobile App Development", 
-      icon: <Smartphone className="w-8 h-8" />, 
-      src:'/mobileApp.jpeg',
-      short: "Seamless user experiences across iOS and Android.",
-      description: "Our mobile solutions are designed to provide seamless user experiences across iOS and Android platforms, combining intuitive interfaces with strong backend performance. From concept to launch, we build apps that are fast, reliable, and optimized to meet your business goals while keeping users at the center of every interaction." 
-    },
-    { 
-      title: "Technical Infrastructure", 
-      icon: <Database className="w-8 h-8" />, 
-      src:'/IT_Infra.jpeg',
-      short: "Reliable technical backbone for organizations and ministries.",
-      description: "We deliver structured, reliable, and future-ready technology frameworks designed to support communication, data management, automation, and scalability. Whether you are building from the ground up or optimizing existing systems, our infrastructure solutions ensure your operations run smoothly and securely, empowering your mission and enhancing your reach." 
-    }
+  const stats = [
+    { label: "Systems Deployed", value: "250+", icon: <TrendingUp className="w-5 h-5" /> },
+    { label: "Uptime Guaranteed", value: "99.9%", icon: <Zap className="w-5 h-5" /> },
+    { label: "Users Reached", value: "1.2M", icon: <Globe className="w-5 h-5" /> },
+    { label: "Security Audits", value: "100%", icon: <ShieldCheck className="w-5 h-5" /> },
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
+    );
 
+    document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
 
- 
-  const customStyles = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-    body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-    .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    @keyframes ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-    .animate-ken-burns { animation: ken-burns 15s ease-out infinite alternate; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #020617; }
-    ::-webkit-scrollbar-thumb { background: #2563eb; }
-    select { appearance: none; -webkit-appearance: none; }
-  `;
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden">
-       <style dangerouslySetInnerHTML={{ __html: customStyles }} /> 
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
+        
+        * { font-family: 'Inter', sans-serif; }
+        
+        .fade-up {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: all 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        
+        .fade-up.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+      `}</style>
 
-
-      <NavBar/>
-
+      <NavBar />
+      
       <main>
-                 <>
-            <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-950">
-              <div className="absolute inset-0 z-0">
-                {heroSlides.map((img, idx) => (
-                  <div key={idx} className={`absolute inset-0 transition-opacity duration-[2000ms] ${activeSlide === idx ? 'opacity-100' : 'opacity-0'}`}>
-                    <div className="absolute inset-0 bg-cover bg-center scale-110 animate-ken-burns" style={{ backgroundImage: `url('${img}')` }}></div>
-                    <div className="absolute inset-0 bg-slate-950/80"></div>
-                  </div>
-                ))}
-              </div>
-              <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-                <div className="max-w-4xl space-y-8 pt-20">
-                  <div className="flex items-center space-x-4 reveal active">
-                    <div className="h-[2px] w-12 bg-blue-600"></div>
-                    //<span className="text-blue-500 font-black uppercase tracking-[0.3em] text-xs">Innovation and Excellence</span>
-                  </div>
-                  <h1 className="text-6xl md:text-6xl font-black text-white leading-none tracking-tighter reveal active">
-                    ENGINEERING <br />
-                    <span className="text-blue-600">IMPACTFUL   </span>
-                    PLATFORMS.
-                  </h1>
-                  <p className="text-xl text-slate-300 max-w-2xl leading-relaxed reveal active">
-                    At LO Platform, we do more than build digital products; we engineer scalable systems that power growth, efficiency, and transformation.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 reveal active">
-                    <Link href={'/about'} className="bg-blue-600 text-white px-12 py-6 font-black uppercase tracking-widest hover:bg-blue-700 transition-all flex items-center group">
-                      Our Foundation <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
-                    </Link>
-                    <Link href={'/services'} className="border border-white/20 text-white px-12 py-6 font-black uppercase tracking-widest hover:bg-white hover:text-slate-950 transition-all">
-                      Our Solutions
-                    </Link>
-                  </div>
+        <HeroSection />
+
+        {/* Stats Section */}
+        <div className="py-16 bg-gradient-to-r from-slate-900 to-slate-800">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((stat, i) => (
+                <div key={i} className="text-center fade-up">
+                  <div className="flex justify-center mb-3 text-blue-400">{stat.icon}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-white">{stat.value}</div>
+                  <div className="text-slate-400 text-sm font-medium mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Mission Section */}
+        <section className="py-28 lg:py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              <div className="fade-up">
+                <div className="inline-flex items-center gap-2 bg-blue-50 rounded-full px-4 py-2 mb-6">
+                  <Target className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Our Mission</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] tracking-tighter">
+                  Beyond Digital{" "}
+                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Products.</span>
+                </h2>
+                <p className="text-lg text-slate-600 mt-6 leading-relaxed">
+                  We work closely with our clients to translate vision and ideas into powerful digital
+                  experiences that serve real-world needs.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {["Zero-downtime architecture", "Enterprise security", "Global scalability"].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 bg-slate-50 rounded-full px-4 py-2">
+                      <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm text-slate-700">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </section>
 
-            {/* Our Mission Section - Replaces New Vision */}
-            <section className="py-24 bg-white border-b border-slate-100">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid lg:grid-cols-12 gap-12 items-center">
-                  <div className="lg:col-span-8 reveal">
-                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-6 flex items-center">
-                       <Target className="mr-2 w-4 h-4 fill-blue-600 text-blue-600" /> Our Mission
-                    </h2>
-                  <h1 className="text-6xl md:text-6xl font-black text-black leading-none tracking-tighter reveal active">
-                    Beyond Digital <br />
-                    <span className="text-blue-600">Products.</span> <br />
-                    
-                  </h1>
-                    <p className="text-xl text-black max-w-2xl leading-relaxed reveal active">
-                      We work closely with our clients to translate vision and ideas into powerful digital experiences that serve real-world needs. From concept to deployment, our team ensures every solution is aligned with your goals.
-                    </p>
-                  </div>
-                  <div className="lg:col-span-4 reveal">
-                    <div className="p-8 bg-slate-50 border-l-4 border-blue-600">
-                      <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                        From concept to deployment, our team ensures every solution is aligned with your goals.
+              <div className="fade-up">
+                <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 rounded-3xl p-8 border border-slate-100 shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
+                      <Quote className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-slate-600 text-lg leading-relaxed italic">
+                        "From concept to deployment, our team ensures every solution is aligned with your goals and built for long-term success."
                       </p>
+                      <div className="mt-6 flex items-center gap-3 pt-4 border-t border-slate-100">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold">
+                          LO
+                        </div>
+                        <div>
+                          <div className="font-semibold text-slate-900">Leadership Team</div>
+                          <div className="text-sm text-blue-600">LO Platform</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              
-                  <div className="mt-16 text-left reveal p-8 ">
-                      <Link href={'/about'} className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 border-b-2 border-blue-600 pb-2 hover:text-slate-900 hover:border-slate-900 transition-all">
-                        Explore More
-                      </Link>
-                    </div>
               </div>
-            </section>
+            </div>
+          </div>
+        </section>
 
-            <section className="py-12 bg-blue-600">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                  {stats.map((stat, i) => (
-                    <div key={i} className="text-white reveal">
-                      <div className="text-4xl font-black tracking-tighter mb-1">{stat.value}</div>
-                      <div className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
+        {/* Services Section */}
+        <section className="py-28 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-16 fade-up">
+              <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">What We Do</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3">Core Capabilities</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto mt-4">Comprehensive digital solutions tailored to your needs.</p>
+            </div>
 
-            <section className="py-32 bg-white">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border border-slate-200">
-                  {services.map((s, i) => (
-                    <div key={i} className="bg-white p-12 hover:bg-blue-600 group transition-all duration-500 reveal">
-                      <div className="text-blue-600 group-hover:text-white mb-8 transition-colors">{s.icon}</div>
-                      <h4 className="text-xl font-black text-slate-900 group-hover:text-white uppercase mb-4 transition-colors leading-tight">{s.title}</h4>
-                      <p className="text-slate-500 group-hover:text-white/80 text-sm transition-colors">{s.short}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-16 text-center reveal">
-                  <Link href={'/services'} className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 border-b-2 border-blue-600 pb-2 hover:text-slate-900 hover:border-slate-900 transition-all">
-                    Explore Our Strategic Framework
-                  </Link>
-                </div>
-              </div>
-            </section>
-
-            {/* Work Portfolio Section */}
-            <section className="py-32 bg-slate-50">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
-                  <div className="max-w-2xl">
-                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Case Studies</h2>
-                    <h3 className="text-5xl font-black text-slate-900 uppercase tracking-tighter">Strategic Portfolio.</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {services.map((service, i) => (
+                <div
+                  key={i}
+                  className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 fade-up cursor-pointer"
+                >
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                    {service.icon}
                   </div>
-                  <button className="text-[10px] font-black uppercase tracking-widest border-b-2 border-blue-600 pb-2 hover:text-blue-600 transition-colors">
-                    View All Works
-                  </button>
-                </div>
-                <div className="grid lg:grid-cols-3 gap-8">
-                  {portfolio.map((item, i) => (
-                    <div key={i} className="group cursor-pointer reveal">
-                      <div className="aspect-[4/5] overflow-hidden mb-8 relative">
-                        <img src={item.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" alt={item.title} />
-                        <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      </div>
-                      <div className="text-blue-600 text-[10px] font-black uppercase tracking-widest mb-2">{item.category}</div>
-                      <h4 className="text-2xl font-black text-slate-900 uppercase tracking-tighter mb-4 group-hover:text-blue-600 transition-colors">{item.title}</h4>
-                      <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* Our Team Homepage Section */}
-            <section className="py-32 bg-white">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                  <div className="grid grid-cols-2 gap-4 reveal">
-                    {team.slice(0, 3).map((member, i) => (
-                      <div key={i} className={`aspect-square relative overflow-hidden ${i === 2 ? 'col-span-2' : ''}`}>
-                        <img src={member.img} className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500" alt={member.name} />
-                      </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{service.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-4">{service.short}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {service.features.map((feature, idx) => (
+                      <span key={idx} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
+                        {feature}
+                      </span>
                     ))}
                   </div>
-                  <div className="space-y-8 reveal">
-                    <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm">The Personnel</h2>
-                    <h3 className="text-5xl font-black text-slate-900 uppercase tracking-tighter">Expert Minds. <br />Focused Mission.</h3>
-                    <p className="text-xl text-slate-500 leading-relaxed">
-                      Our team consists of high-level architects, security experts, and designers who share a singular vision: engineering digital infrastructure that scales with purpose.
-                    </p>
-                    <Link href={'/About'} className="bg-slate-950 text-white px-10 py-5 font-black uppercase tracking-widest text-[10px] hover:bg-blue-600 transition-all">
-                      Meet the Team
-                    </Link>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-12 fade-up">
+              <Link href="/services" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all">
+                Explore All Services <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Portfolio Section */}
+        <section className="py-28 bg-white">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 fade-up">
+              <div>
+                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider flex items-center gap-2">
+                  <Briefcase className="w-4 h-4" /> Case Studies
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-2">Strategic Portfolio</h2>
+              </div>
+              <Link href="/portfolio" className="text-slate-600 font-medium hover:text-blue-600 transition-colors flex items-center gap-1">
+                View All Works <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {portfolio.map((item, i) => (
+                <div key={i} className="group fade-up cursor-pointer">
+                  <div className="rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={item.img}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt={item.title}
+                      />
+                    </div>
+                    <div className="p-6 bg-white">
+                      <span className="text-blue-600 text-xs font-semibold uppercase tracking-wider">{item.category}</span>
+                      <h3 className="text-xl font-bold text-slate-900 mt-2 mb-2 group-hover:text-blue-600 transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            {/* Testimonials Section */}
-            <section className="py-32 bg-slate-950 text-white relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-600/5 -skew-x-12 translate-x-20"></div>
-               <div className="max-w-7xl mx-auto px-6 relative z-10">
-                 <div className="text-center mb-24 reveal">
-                   <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Validation</h2>
-                   <h3 className="text-5xl font-black uppercase tracking-tighter">Client Impact.</h3>
-                 </div>
-                 <div className="grid md:grid-cols-2 gap-12">
-                   {testimonials.map((t, i) => (
-                     <div key={i} className="bg-white/5 p-12 border border-white/10 hover:border-blue-600 transition-colors reveal">
-                       <Quote className="text-blue-600 mb-8" size={40} />
-                       <p className="text-2xl font-medium leading-relaxed mb-10 italic">"{t.quote}"</p>
-                       <div className="flex items-center space-x-4">
-                         <img src={t.img} className="w-14 h-14 rounded-full grayscale" alt={t.author} />
-                         <div>
-                           <div className="font-black uppercase tracking-widest text-sm">{t.author}</div>
-                           <div className="text-blue-600 text-[10px] font-black uppercase tracking-[0.2em]">{t.org}</div>
-                         </div>
-                       </div>
-                     </div>
-                   ))}
-                 </div>
-               </div>
-            </section>
-          </>
+        {/* Team Section */}
+        <section className="py-28 bg-gradient-to-br from-slate-50 via-white to-blue-50/20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-16 fade-up">
+              <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                <Users className="w-4 h-4" /> The Team
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3">Expert Minds. Focused Mission.</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto mt-4">
+                Our team consists of high-level architects, security experts, and designers who share a singular vision.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
+              {team.map((member, i) => (
+                <div key={i} className="text-center fade-up group">
+                  <div className="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 ring-4 ring-white">
+                    <img
+                      src={member.img}
+                      className="w-full h-full object-cover object-top"
+                      alt={member.name}
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mt-5">{member.name}</h3>
+                  <p className="text-blue-600 font-medium">{member.role}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-12 fade-up">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-600 transition-all duration-300"
+              >
+                Meet the Team <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-28 bg-slate-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-purple-600/10" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-16 fade-up">
+              <span className="text-blue-400 font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">Client Impact</h2>
+              <p className="text-slate-300 max-w-2xl mx-auto mt-4">What our clients say about working with us</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {testimonials.map((testimonial, i) => (
+                <div
+                  key={i}
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 fade-up border border-white/10"
+                >
+                  <Quote className="w-10 h-10 text-blue-400 mb-4" />
+                  <p className="text-lg leading-relaxed mb-6">"{testimonial.quote}"</p>
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={testimonial.img}
+                      className="w-12 h-12 rounded-full object-cover ring-2 ring-blue-500/50"
+                      alt={testimonial.author}
+                    />
+                    <div>
+                      <div className="font-bold text-white">{testimonial.author}</div>
+                      <div className="text-blue-400 text-sm">{testimonial.org}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600" />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 opacity=%220.05%22%3E%3Cpath fill=%22white%22 d=%22M50 0L100 50L50 100L0 50Z%22/%3E%3C/svg%3E')] bg-repeat" />
+
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
+            <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-2 mb-6 backdrop-blur-sm">
+              <Sparkles className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">Let's Work Together</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to transform your digital presence?</h2>
+            <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+              Let's create something extraordinary together. Get in touch and let's start building the future.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button
+                type="button"
+                className="bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              >
+                Start a Conversation
+              </button>
+              <button
+                type="button"
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300"
+              >
+                View Our Work
+              </button>
+            </div>
+          </div>
+        </section>
       </main>
 
-   <Footer/>
+      <Footer />
     </div>
   );
 };
 
-export default App;
+export default HomePage;

@@ -1,115 +1,161 @@
-  "use client"
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Monitor, 
-  Smartphone, 
-  Layers, 
-  Database, 
-  Menu, 
-  X, 
-  ArrowRight,
-  Target, 
-  Eye, 
-  ShieldCheck, 
-  Zap, 
-  Star, 
-  Clock, 
-  User, 
-  Quote,
-  CheckCircle2,
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  MessageSquare
-} from 'lucide-react';
-  export default function NavBar(){
+import { Menu, X, ChevronDown } from 'lucide-react';
 
-      const [isMenuOpen, setIsMenuOpen] = useState(false);
-      const [scrolled, setScrolled] = useState(false);
-      const [activeSlide, setActiveSlide] = useState(0);
-      const [currentPage, setCurrentPage] = useState('home');
-      const [formStatus, setFormStatus] = useState<string | null>(null);
-      const [formData, setFormData] = useState({ name: '', email: '', organisation: '', subject: '', message: '' });
-    
-  const navigateTo = (page:any) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsMenuOpen(false);
-  };
- const customStyles = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-    body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-    .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    @keyframes ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-    .animate-ken-burns { animation: ken-burns 15s ease-out infinite alternate; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #020617; }
-    ::-webkit-scrollbar-thumb { background: #2563eb; }
-    select { appearance: none; -webkit-appearance: none; }
-  `;
-     
-  return(
-    < >
-    {/* <style dangerouslySetInnerHTML={{ __html: customStyles }} /> */}
-          <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'bg-white shadow-xl py-4' : 'bg-black lg:mt-0 py-8'}`}>
+export default function NavBar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const services = [
+    { label: "All Services", href: "/services" },           // ← Added
+    { label: "Website Design", href: "/website_design" },
+    { label: "Web App Development", href: "/web_app_developement" },
+    { label: "Mobile App Development", href: "/mobile_app_developement" },
+    { label: "Technical Infrastructure", href: "/IT_Infrastructure" },
+  ];
+
+  return (
+    <>
+      <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled ? 'bg-white shadow-lg py-4' : 'bg-white/95 backdrop-blur-md py-5'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <Link href={'/'} className="flex items-center space-x-3 group outline-none">
-            <div className="w-32 h-10  flex items-center justify-center transition-all duration-500 group-hover:rotate-90">
-         <Image
-            src="/logo.png" // Next.js looks directly into the 'public' folder
-            alt="Logo"
-            width={500}
-            height={500}
-          />
+          
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 flex items-center justify-center">
+              <Image
+                src="/logo.png"
+                alt="LO Platform Logo"
+                width={48}
+                height={48}
+                className="transition-transform group-hover:rotate-12"
+              />
             </div>
-            <span className={`text-2xl font-black tracking-tighter transition-colors ${scrolled || currentPage !== 'home' ? 'text-slate-900' : 'text-slate-900 lg:text-white'}`}>
-              <span className="text-blue-600">PLATFORMS</span>
+            <span className="text-2xl font-black tracking-tighter text-slate-900">
+              LO <span className="text-blue-600">PLATFORMS</span>
             </span>
           </Link>
 
-          <div className="hidden lg:flex items-center space-x-10">
-            {[
-              { label: 'Home', id: '/' },
-              { label: 'About', id: 'about' },
-              { label: 'Services', id: 'services' },
-              { label: 'Contact', id: 'contact' },
-              { label: 'Faq', id: 'faq' },
-            ].map((item) => (
-              <Link 
-                key={item.id} 
-                href={`/${item.id}`}
-                className={`text-[10px] text-black font-black uppercase tracking-[0.2em] transition-all hover:text-blue-600 relative group/link ${scrolled || currentPage !== 'home' ? 'text-slate-600' : 'text-black lg:text-white'} ${currentPage === item.id ? 'text-blue-600' : ''}`}
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-10">
+            <Link href="/" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              Home
+            </Link>
+
+            <Link href="/about" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              About
+            </Link>
+
+            {/* Services Dropdown */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button 
+                className="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
               >
-                {item.label}
-                <span className={`absolute -bottom-2 left-0 h-0.5 bg-blue-600 transition-all ${currentPage === item.id ? 'w-full' : 'w-0 group-hover/link:w-full'}`}></span>
-              </Link>
-            ))}
-          </div>
+                Services
+                <ChevronDown size={16} className="transition-transform group-hover:rotate-180" />
+              </button>
 
-          <button className="lg:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={32} className={(scrolled || currentPage !== 'home') ? 'text-slate-900' : 'text-white'} /> : <Menu size={32} className={(scrolled || currentPage !== 'home') ? 'text-slate-900' : 'text-white'} />}
-          </button>
-        </div>
-      </nav>
-
-            {isMenuOpen && (
-              <div className="fixed inset-0 z-[110] bg-slate-950 flex flex-col items-center justify-center text-center p-6 lg:hidden">
-                <button className="absolute top-8 right-8 text-white" onClick={() => setIsMenuOpen(false)}><X size={40} /></button>
-                {['Home', 'About', 'Services', 'Contact', 'Faq'].map((item) => (
-                  <Link key={item} href={`/${item.toLocaleLowerCase()}`} className="text-3xl font-black text-white uppercase tracking-tighter mb-8 hover:text-blue-600 transition-colors">{item}</Link>
+              {/* Dropdown Menu */}
+              <div className={`absolute top-full left-0 mt-3 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50`}>
+                {services.map((service, i) => (
+                  <Link
+                    key={i}
+                    href={service.href}
+                    className="block px-6 py-3 text-sm hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600"
+                  >
+                    {service.label}
+                  </Link>
                 ))}
               </div>
-            )}
-    
+            </div>
+
+            <Link href="/faq" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              FAQ
+            </Link>
+
+            <Link href="/contact" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              Contact
+            </Link>
+          </div>
+
+          {/* CTA Button */}
+          <Link 
+            href="/contact"
+            className="hidden lg:block bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all"
+          >
+            Start a Project
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden p-2 text-slate-900"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden fixed inset-0 bg-white z-[110] pt-20 px-6 overflow-auto">
+            <div className="flex flex-col gap-6 text-lg font-medium">
+              <Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+              <Link href="/about" onClick={() => setIsMenuOpen(false)}>About Us</Link>
+
+              {/* Mobile Services Accordion */}
+              <div>
+                <button 
+                  onClick={() => setServicesOpen(!servicesOpen)}
+                  className="flex items-center justify-between w-full text-left"
+                >
+                  Services
+                  <ChevronDown className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                </button>
+                {servicesOpen && (
+                  <div className="mt-4 ml-4 flex flex-col gap-4 border-l border-slate-200 pl-6">
+                    {services.map((service, i) => (
+                      <Link 
+                        key={i} 
+                        href={service.href} 
+                        onClick={() => setIsMenuOpen(false)}
+                        className="text-slate-600 hover:text-blue-600"
+                      >
+                        {service.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <Link href="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
+              <Link href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+
+              <Link 
+                href="/contact"
+                className="mt-6 bg-blue-600 text-white py-4 rounded-2xl text-center font-semibold"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Start a Project
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
     </>
-  )
-
-  }
-  
- 
-
-
+  );
+}

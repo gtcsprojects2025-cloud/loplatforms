@@ -1,149 +1,203 @@
-"use client"
-import React, { useState, useEffect }  from "react"
-import NavBar from "../components/navBar"
-import PageHeader from "../components/pageHeader"
-import Link from "next/link"
-import { 
-  Monitor, 
-  Smartphone, 
-  Layers, 
-  Database, 
-  Menu, 
-  X, 
-  ArrowRight,
-  Target, 
-  Eye, 
-  ShieldCheck, 
-  Zap, 
-  Star, 
-  Clock, 
-  User, 
-  Quote,
-  CheckCircle2,
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  MessageSquare
-} from 'lucide-react';
-import Footer from "../components/footer"
+"use client";
 
-const WebDev = ()=>{
+import React, { useEffect } from "react";
+import Link from "next/link";
+import NavBar from "../components/navBar";
+import PageHeader from "../components/pageHeader";
+import Footer from "../components/footer";
+import { Layers, ArrowRight, Zap, ShieldCheck, Users, Award, BarChart3 } from 'lucide-react';
 
-    const services = [
-    { 
-      title: "Web App Development", 
-      route:"/webDev",
-      icon: <Layers className="w-8 h-8" />, 
-      src:'/web_dev.jpeg',
-      short: "Powerful systems that streamline productivity and growth.",
-      description: "We build secure, scalable, and high-performing web applications tailored to your specific operational needs. Whether it's internal systems, customer platforms, or enterprise solutions, we ensure every application is built with precision and future scalability in mind. We transform complex ideas into intelligent digital systems that work efficiently and reliably." 
+const WebDev = () => {
+  const benefits = [
+    {
+      icon: <Zap className="w-8 h-8" />,
+      title: "High Performance",
+      desc: "Lightning-fast applications with excellent user experience and scalability."
     },
-
+    {
+      icon: <ShieldCheck className="w-8 h-8" />,
+      title: "Enterprise Security",
+      desc: "Built with modern security standards and data protection best practices."
+    },
+    {
+      icon: <Users className="w-8 h-8" />,
+      title: "User Focused",
+      desc: "Intuitive interfaces that improve productivity and user adoption."
+    },
+    {
+      icon: <BarChart3 className="w-8 h-8" />,
+      title: "Real-time Insights",
+      desc: "Powerful dashboards and analytics to help you make data-driven decisions."
+    },
   ];
 
-    const faq =[
+  const faqs = [
     {
-      question: "How much does it cost to build a professional website in Ottawa?",
-      answer: "The cost of a professional website really depends on what you need it to do. For most businesses in Ottawa, projects typically fall between **$2,500 and $10,000+**."
+      question: "What is the difference between a website and a web app?",
+      answer: "A website is mostly informational, while a web app is interactive and performs specific functions like internal tools, dashboards, booking systems, or customer portals."
     },
     {
-      question: "How long does the website development process take?",
-      answer: "Most projects take between **6 to 12 weeks** from start to finish. That includes discovery, planning, design, development, and testing."
+      question: "How long does it take to build a web application?",
+      answer: "Most web applications take between 8 to 16 weeks, depending on complexity, features, integrations, and design requirements."
     },
     {
-      question: "Will my website work well on mobile devices?",
-      answer: "Your website will be fully responsive, meaning it will adapt seamlessly across smartphones, tablets, and desktops. With the majority of users browsing on mobile, especially in urban areas like Ottawa, this is not optional—it is essential for both user experience and search rankings."
+      question: "Are your web apps mobile-friendly?",
+      answer: "Yes. All our web applications are fully responsive and work seamlessly across desktops, tablets, and mobile devices."
     },
     {
-      question: "Do you include SEO in your website development?",
-      answer: "From site structure and page speed to metadata and technical optimization, everything is set up to help your business get discovered—especially within the Ottawa market. The goal is simple: when your site goes live, it should already be positioned to perform."
-      },
-      {
-      question: "Will I be able to update my website on my own?",
-      answer: "We build on user-friendly platforms that allow you to update content, upload images, or publish blog posts without needing technical skills. After launch, we also guide you through the backend so you are comfortable managing your site day-to-day."
-      },
-      {
-      question: "Where will my website be hosted, and is it secure?",
-      answer: "We recommend reliable hosting environments with **SSL encryption (HTTPS)**, automated backups, and strong security protocols. For Ottawa-based businesses, we often suggest Canadian data hosting options to improve loading speeds and align with local data preferences."
-
-      },
-      {
-      question: "Do you offer ongoing website support and maintenance?",
-      answer: "We offer maintenance plans that cover updates, security checks, and performance monitoring. This keeps your site running smoothly while you focus on your business."
-
-      },
-      {
-      question: "Why choose a local Ottawa web development team like LO PLATFORMS?",
-      answer: "We understand the Ottawa business environment—how people search, what competitors are doing, and how to position your brand effectively in this market. Beyond that, there’s real value in being able to have direct conversations, strategy sessions, and ongoing collaboration with a team that’s accessible and invested in your growth."
-
-      },
-
+      question: "Can you integrate with existing systems?",
+      answer: "Absolutely. We specialize in integrating web apps with CRMs, payment gateways, ERPs, databases, and third-party APIs."
+    },
+    {
+      question: "Do you provide ongoing maintenance and support?",
+      answer: "Yes. We offer flexible maintenance packages to keep your web app secure, updated, and performing optimally."
+    },
   ];
-    return(
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
     <>
-    <NavBar/>
-    <PageHeader title={"Web App Developement"} subtitle={"Web App"}/>
+      <NavBar />
 
-                <div className="space-y-24 pt-20 px-20">
-                  {services.map((s, i) => (
-                    <div key={i} className={`grid lg:grid-cols-2 gap-16 items-center reveal ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                      <div className={`${i % 2 !== 0 ? 'lg:order-2' : ''}`}>
-                        <div className="w-20 h-20 bg-blue-600 flex items-center justify-center text-white mb-8">
-                          {s.icon}
-                        </div>
-                        <h4 className="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-6">{s.title}</h4>
-                        <p className="text-lg text-slate-600 leading-relaxed">
-                          {s.description}
-                        </p>
-                      </div>
-                       <Link href='/website'>
-                      <div className={`bg-slate-100 aspect-video relative overflow-hidden ${i % 2 !== 0 ? 'lg:order-1' : ''}`}>
-                         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-slate-950/20"></div>
-                         <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                            {/* <Layers size={120} /> */}
-                            {/* <img src='/website_design.jpeg' className="w-14 h-14 rounded-full grayscale" alt='Website Design' /> */}
-                         </div>
-                        
-                         <img src={s.src} className="w-full h-full" alt={s.title} />
-                         
-                      </div>
-                      </Link>
-                    </div>
-                  ))}
+      {/* Hero Section */}
+      <section className="pt-20 md:pt-40 pb-20 bg-gradient-to-br from-slate-950 via-zinc-900 to-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_right,#3b82f620_0%,transparent_50%)]" />
+        
+        <div className="max-w-5xl mx-auto px-6 text-center relative">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full mb-8">
+            <Layers className="w-5 h-5" />
+            <span className="text-sm font-medium tracking-widest uppercase">Intelligent Systems</span>
+          </div>
+          
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tighter leading-tight mb-6">
+            Web apps that drive<br />real business growth
+          </h1>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            We build secure, scalable, and high-performing web applications tailored to your unique operational needs.
+          </p>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Text */}
+            <div className="reveal space-y-8">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl flex items-center justify-center text-white">
+                <Layers className="w-11 h-11" />
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900">
+                Custom Web Applications<br />Built for Performance
+              </h2>
+              
+              <p className="text-lg text-slate-600 leading-relaxed">
+                We develop secure, scalable, and intuitive web applications that streamline operations, 
+                boost productivity, and support business growth. From internal tools to complex enterprise platforms — 
+                we turn your ideas into powerful digital systems.
+              </p>
+
+              <Link 
+                href="/contact"
+                className="inline-flex items-center gap-3 bg-slate-900 hover:bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all group"
+              >
+                Start Building Your Web App
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+
+            {/* High-Quality Image */}
+            <div className="reveal">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[16/10]">
+                <img 
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85" 
+                  alt="Web Application Development"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                
+                <div className="absolute bottom-8 left-8 text-white">
+                  <div className="uppercase text-blue-400 text-xs tracking-widest font-medium">Enterprise Solutions</div>
+                  <div className="text-2xl font-bold mt-1">Powerful Web Applications</div>
                 </div>
-                {/* FAQ / Support Section */}
-                <section className="py-32 bg-slate-50">
-                  <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-20 reveal">
-                       <h2 className="text-blue-600 font-black uppercase tracking-[0.4em] text-sm mb-4">Support</h2>
-                       <h3 className="text-5xl font-black text-slate-900 uppercase tracking-tighter">Strategic FAQ.</h3>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-8">
-                      {faq.map((faq, i) => (
-                        <div key={i} className="p-10 bg-white border border-slate-200 reveal">
-                          <div className="flex items-center space-x-4 mb-4">
-                            <MessageSquare className="text-blue-600" size={20} />
-                            <h4 className="text-lg font-black uppercase tracking-tight text-black">{faq.question}</h4>
-                          </div>
-                          <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </section>
-                <div className="mt-0 px-20 md:p-24 bg-blue-600 text-white text-center reveal">
-                  <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8">Ready to grow faster?</h3>
-                  <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto">
-                    Partner with LO Platform to create digital solutions that are not only innovative, but impactful, scalable, and built for growth.
-                  </p>
-                  <Link href={"/contact"}  className="bg-slate-950 text-white px-12 py-6 font-black uppercase tracking-widest text-sm hover:bg-white hover:text-slate-950 transition-all">
-                    Contact Our Architects
-                  </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16 reveal">
+            <h2 className="text-4xl font-bold tracking-tighter">Why Our Web Apps Stand Out</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, i) => (
+              <div key={i} className="bg-white p-8 rounded-3xl hover:shadow-xl transition-all duration-500 reveal group">
+                <div className="text-blue-600 mb-6 group-hover:scale-110 transition-transform">
+                  {benefit.icon}
                 </div>
-    <Footer/>
+                <h3 className="text-2xl font-bold mb-3">{benefit.title}</h3>
+                <p className="text-slate-600">{benefit.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-16 reveal">
+            <h2 className="text-4xl font-bold tracking-tighter">Frequently Asked Questions</h2>
+          </div>
+
+          <div className="space-y-6">
+            {faqs.map((faq, i) => (
+              <div key={i} className="border border-slate-100 rounded-3xl p-8 hover:border-blue-200 transition-colors reveal">
+                <h4 className="font-semibold text-xl text-slate-900 mb-4">{faq.question}</h4>
+                <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-28 bg-slate-900 text-white text-center">
+        <div className="max-w-3xl mx-auto px-6">
+          <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
+            Ready to transform your operations?
+          </h3>
+          <p className="text-slate-400 text-lg mb-10">
+            Let’s build a powerful, secure, and scalable web application for your business.
+          </p>
+          <Link 
+            href="/contact"
+            className="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-full font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all"
+          >
+            Start Your Project
+            <ArrowRight />
+          </Link>
+        </div>
+      </section>
+
+      <Footer />
     </>
-    )
-}
+  );
+};
 
 export default WebDev;
