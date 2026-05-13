@@ -10,10 +10,10 @@ const HeroSection = () => {
   const [isAnimating, setIsAnimating] = useState(false);
 
   const rotatingImages = [
-    "https://images.unsplash.com/photo-1551434678-e076c2235a95?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+     "https://images.unsplash.com/photo-1551434678-e076c2235a95?w=800&h=600&fit=crop",
+  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop",
+  "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&h=600&fit=crop",
+  "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop"
   ];
 
   useEffect(() => {
