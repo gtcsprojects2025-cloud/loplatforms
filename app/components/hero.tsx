@@ -29,7 +29,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden pt-32 pb-20">
+    <section className="min-h-screen flex items-center relative overflow-hidden pt-32 pb-20 text-black">
       {/* Background subtle gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-white pointer-events-none"></div>
       
