@@ -60,8 +60,8 @@ const Footer = () => {
                 <Mail className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                   <p className="font-medium text-white">Email</p>
-                  <a href="mailto:support@loplatforms.com" className="hover:text-white transition-colors">
-                    support@loplatforms.com
+                  <a href="mailto:layo@lopublications.com" className="hover:text-white transition-colors">
+                    layo@lopublications.com
                   </a>
                 </div>
               </div>
@@ -70,8 +70,8 @@ const Footer = () => {
                 <Phone className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                   <p className="font-medium text-white">Phone</p>
-                  <a href="tel:+2347011871220" className="hover:text-white transition-colors">
-                    +234 701 187 1220
+                  <a href="tel:+1(905)9224471" className="hover:text-white transition-colors">
+                    +1 (905) 922-4471
                   </a>
                 </div>
               </div>
@@ -81,8 +81,7 @@ const Footer = () => {
                 <div>
                   <p className="font-medium text-white">Office</p>
                   <p className="leading-tight">
-                    11, Ogunmefun Street<br />
-                    Gbagada, Lagos, Nigeria
+                    1551 Lycee Place, Ottawa,<br /> K1G4B5 Canada
                   </p>
                 </div>
               </div>
