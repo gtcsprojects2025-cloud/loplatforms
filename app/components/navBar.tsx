@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -9,28 +9,42 @@ export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close dropdown on Escape
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setServicesOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
   const services = [
-    { label: "All Services", href: "/services" },           // ← Added
+    { label: "All Services", href: "/services" },
     { label: "Website Design", href: "/website_design" },
     { label: "Web App Development", href: "/web_app_developement" },
     { label: "Mobile App Development", href: "/mobile_app_developement" },
     { label: "Technical Infrastructure", href: "/IT_Infrastructure" },
+    { label: "Web Application Guide", href: "/web-application-development-company-in-nigeria" },
   ];
 
   return (
     <>
-      <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled ? 'bg-white shadow-lg py-4' : 'bg-white/95 backdrop-blur-md py-5'}`}>
+      <nav
+        className={`fixed w-full z-[100] transition-all duration-500 ${
+          scrolled ? 'bg-white shadow-lg py-4' : 'bg-white/95 backdrop-blur-md py-5'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 flex items-center justify-center">
@@ -49,52 +63,87 @@ export default function NavBar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-10">
-            <Link href="/" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/"
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+            >
               Home
             </Link>
 
-            <Link href="/about" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/about"
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+            >
               About
             </Link>
 
             {/* Services Dropdown */}
-            <div 
-              className="relative group"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
+<div
+  ref={dropdownRef}
+  className="relative"
+  onMouseEnter={() => setServicesOpen(true)}
+  onMouseLeave={() => setServicesOpen(false)}
+>
+  <button
+    type="button"
+    aria-expanded={servicesOpen}
+    aria-haspopup="true"
+    className="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors py-2"
+  >
+    Services
+    <ChevronDown
+      size={16}
+      className={`transition-transform ${servicesOpen ? 'rotate-180' : ''}`}
+    />
+  </button>
+
+  {/* Dropdown wrapper — padding creates the visual gap WITHOUT breaking hover */}
+  <div
+    className={`absolute top-full left-0 pt-3 w-72 z-50 transition-all duration-200 ${
+      servicesOpen
+        ? 'opacity-100 visible translate-y-0'
+        : 'opacity-0 invisible -translate-y-1 pointer-events-none'
+    }`}
+  >
+    <div className="bg-white rounded-2xl shadow-xl border border-slate-100 py-3">
+      {services.map((service, i) => (
+        <Link
+          key={i}
+          href={service.href}
+          className="block px-6 py-3 text-sm hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600"
+        >
+          {service.label}
+        </Link>
+      ))}
+    </div>
+  </div>
+</div>
+
+            {/* Blog — NEW */}
+            <Link
+              href="/blog"
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
             >
-              <button 
-                className="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
-              >
-                Services
-                <ChevronDown size={16} className="transition-transform group-hover:rotate-180" />
-              </button>
+              Blog
+            </Link>
 
-              {/* Dropdown Menu */}
-              <div className={`absolute top-full left-0 mt-3 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50`}>
-                {services.map((service, i) => (
-                  <Link
-                    key={i}
-                    href={service.href}
-                    className="block px-6 py-3 text-sm hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600"
-                  >
-                    {service.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <Link href="/faq" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/faq"
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+            >
               FAQ
             </Link>
 
-            <Link href="/contact" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/contact"
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+            >
               Contact
             </Link>
           </div>
 
           {/* CTA Button */}
-          <Link 
+          <Link
             href="/contact"
             className="hidden lg:block bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all"
           >
@@ -102,9 +151,10 @@ export default function NavBar() {
           </Link>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="lg:hidden p-2 text-slate-900"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -114,24 +164,32 @@ export default function NavBar() {
         {isMenuOpen && (
           <div className="lg:hidden fixed inset-0 bg-white z-[110] pt-20 px-6 overflow-auto">
             <div className="flex flex-col gap-6 text-lg font-medium">
-              <Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
-              <Link href="/about" onClick={() => setIsMenuOpen(false)}>About Us</Link>
+              <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                Home
+              </Link>
+              <Link href="/about" onClick={() => setIsMenuOpen(false)}>
+                About Us
+              </Link>
 
               {/* Mobile Services Accordion */}
               <div>
-                <button 
-                  onClick={() => setServicesOpen(!servicesOpen)}
+                <button
+                  type="button"
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                  aria-expanded={mobileServicesOpen}
                   className="flex items-center justify-between w-full text-left"
                 >
                   Services
-                  <ChevronDown className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                  />
                 </button>
-                {servicesOpen && (
+                {mobileServicesOpen && (
                   <div className="mt-4 ml-4 flex flex-col gap-4 border-l border-slate-200 pl-6">
                     {services.map((service, i) => (
-                      <Link 
-                        key={i} 
-                        href={service.href} 
+                      <Link
+                        key={i}
+                        href={service.href}
                         onClick={() => setIsMenuOpen(false)}
                         className="text-slate-600 hover:text-blue-600"
                       >
@@ -142,10 +200,19 @@ export default function NavBar() {
                 )}
               </div>
 
-              <Link href="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
-              <Link href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              {/* Blog — NEW */}
+              <Link href="/blog" onClick={() => setIsMenuOpen(false)}>
+                Blog
+              </Link>
 
-              <Link 
+              <Link href="/faq" onClick={() => setIsMenuOpen(false)}>
+                FAQ
+              </Link>
+              <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
+                Contact
+              </Link>
+
+              <Link
                 href="/contact"
                 className="mt-6 bg-blue-600 text-white py-4 rounded-2xl text-center font-semibold"
                 onClick={() => setIsMenuOpen(false)}

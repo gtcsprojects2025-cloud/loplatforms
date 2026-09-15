@@ -66,7 +66,7 @@ const Services = () => {
 
   return (
     <>
-      <NavBar />
+     
 
       {/* Hero Section */}
       <section className=" pt:20 md:pt-40 pb-20 bg-gradient-to-br from-slate-950 to-zinc-900 text-white">
