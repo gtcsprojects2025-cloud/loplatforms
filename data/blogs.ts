@@ -68,5 +68,16 @@ export const allBlogPosts: BlogPost[] = [
     readTime: "10 min read",
     date: "June 12, 2026",
     author: "LOPublications"
-  }
+  },
+    {
+    id: 6,
+    title: "When Should a Business Build a Custom Web Application?",
+    slug: "when-should-a-business-build-a-custom-web-application",
+    excerpt: "Most advice on custom software gives you a checklist. This goes deeper — the three symptoms that show you're already past the tipping point, and what waiting too long actually costs.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070",
+    category: "Web Development",
+    readTime: "9 min read",
+    date: "June 14, 2026",
+    author: "LOPublications"
+  },
 ];

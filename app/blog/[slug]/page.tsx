@@ -9,6 +9,7 @@ import WebAppsVsWordPress from './posts/WebAppsVsWordPress';
 import OttawaPublishersReject from './posts/OttawaPublishersReject';
 import WebApplicationVsWebsite from './posts/WebApplicationVsWebsite';
 import HowLongToDevelopWebApp from './posts/HowLongToDevelopWebApp';
+import CustomWebApplicationTiming from './posts/CustomWebApplicationTiming';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -20,6 +21,7 @@ const PostComponents: Record<string, React.ComponentType> = {
   "why-do-ottawa-publishers-reject-manuscripts": OttawaPublishersReject,
   "what-is-a-web-application-different-from-a-website": WebApplicationVsWebsite,
   "how-long-does-it-take-to-develop-a-web-application": HowLongToDevelopWebApp,
+  "when-should-a-business-build-a-custom-web-application": CustomWebApplicationTiming,
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
