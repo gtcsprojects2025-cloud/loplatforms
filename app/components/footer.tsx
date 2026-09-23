@@ -60,8 +60,8 @@ const Footer = () => {
                 <Mail className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                   <p className="font-medium text-white">Email</p>
-                  <a href="mailto:layo@lopublications.com" className="hover:text-white transition-colors">
-                    layo@lopublications.com
+                  <a href="mailto:layo@lomediahouse.com" className="hover:text-white transition-colors">
+                    layo@lomediahouse.com
                   </a>
                 </div>
               </div>
@@ -70,7 +70,7 @@ const Footer = () => {
                 <Phone className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                   <p className="font-medium text-white">Phone</p>
-                  <a href="tel:+1(905)9224471" className="hover:text-white transition-colors">
+                  <a href="tel:+19059224471" className="hover:text-white transition-colors">
                     +1 (905) 922-4471
                   </a>
                 </div>

@@ -80,8 +80,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Email</p>
-                    <a href="mailto:support@loplatforms.com" className="text-xl font-medium hover:text-blue-600 transition-colors">
-                      support@loplatforms.com
+                    <a href="mailto:slayo@lomediahouse.com" className="text-xl font-medium hover:text-blue-600 transition-colors">
+                      layo@lomediahouse.com
                     </a>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ const Contact = () => {
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Phone</p>
                     <a href="tel:+2347011871220" className="text-xl font-medium hover:text-blue-600 transition-colors">
-                      +234 701 187 1220
+                      +1 (905) 922-4471
                     </a>
                   </div>
                 </div>
@@ -105,8 +105,8 @@ const Contact = () => {
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Office</p>
                     <p className="text-lg leading-tight">
-                      11, Ogunmefun Street<br />
-                      Gbagada, Lagos, Nigeria
+                      1551 Lycee Place<br />
+                      Ottawa, K1G4B5, Canada
                     </p>
                   </div>
                 </div>
