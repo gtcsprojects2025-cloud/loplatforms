@@ -12,8 +12,6 @@ import {
 } from 'lucide-react';
 
 import PageHeader from '../components/pageHeader';
-import Footer from '../components/footer';
-import NavBar from '../components/navBar';
 
 const Services = () => {
   const services = [
@@ -66,7 +64,7 @@ const Services = () => {
 
   return (
     <>
-      <NavBar />
+     
 
       {/* Hero Section */}
       <section className=" pt:20 md:pt-40 pb-20 bg-gradient-to-br from-slate-950 to-zinc-900 text-white">
@@ -173,8 +171,7 @@ const Services = () => {
         </div>
       </section>
 
-      <Footer />
-    </>
+      </>
   );
 };
 

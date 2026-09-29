@@ -2,9 +2,7 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import NavBar from "../components/navBar";
 import PageHeader from "../components/pageHeader";
-import Footer from "../components/footer";
 import { Monitor, ArrowRight, Users, Zap, Award, Eye, Globe } from 'lucide-react';
 
 const WebsiteDev = () => {
@@ -67,8 +65,6 @@ const WebsiteDev = () => {
 
   return (
     <>
-      <NavBar />
-
       {/* Hero Section */}
       <section className="pt-20 md:pt-40 pb-20 bg-gradient-to-br from-slate-950 via-zinc-900 to-slate-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(at_top_right,#3b82f620_0%,transparent_50%)]" />
@@ -195,8 +191,7 @@ const WebsiteDev = () => {
         </div>
       </section>
 
-      <Footer />
-    </>
+      </>
   );
 };
 

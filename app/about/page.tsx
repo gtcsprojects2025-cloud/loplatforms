@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import NavBar from "../components/navBar";
-import Footer from "../components/footer";
 import { 
   Target, 
   ShieldCheck, 
@@ -72,8 +70,6 @@ const About = () => {
 
   return (
     <>
-      <NavBar />
-      
       {/* Hero Section - Balanced Heading */}
       <section className="pt-28 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(at_top_right,#3b82f620_0%,transparent_50%)]" />
@@ -222,8 +218,7 @@ const About = () => {
         </div>
       </section>
 
-      <Footer />
-    </>
+      </>
   );
 };
 

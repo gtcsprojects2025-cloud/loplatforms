@@ -2,9 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import NavBar from "../components/navBar";
 import PageHeader from "../components/pageHeader";
-import Footer from "../components/footer";
 import { ChevronDown, MessageSquare } from 'lucide-react';
 
 const Faq = () => {
@@ -55,7 +53,6 @@ const Faq = () => {
 
   return (
     <>
-      <NavBar />
       <PageHeader title="FAQ" subtitle="Frequently Asked Questions" />
 
       <section className="py-24 bg-white">
@@ -124,8 +121,7 @@ const Faq = () => {
         </div>
       </section>
 
-      <Footer />
-    </>
+      </>
   );
 };
 

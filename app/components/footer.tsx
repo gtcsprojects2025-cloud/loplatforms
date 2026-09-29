@@ -71,7 +71,7 @@ const Footer = () => {
                 <div>
                   <p className="font-medium text-white">Phone</p>
                   <a href="tel:+19059224471" className="hover:text-white transition-colors">
-                   +1 (905) 922-4471
+                    +1 (905) 922-4471
                   </a>
                 </div>
               </div>
@@ -81,9 +81,7 @@ const Footer = () => {
                 <div>
                   <p className="font-medium text-white">Office</p>
                   <p className="leading-tight">
-                    
-                    1551 Lycee Place, Ottawa,<br />
-                    K1G4B5 Canada
+                    1551 Lycee Place, Ottawa,<br /> K1G4B5 Canada
                   </p>
                 </div>
               </div>

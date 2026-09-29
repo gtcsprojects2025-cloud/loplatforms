@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import NavBar from "../components/navBar";
 import PageHeader from "../components/pageHeader";
-import Footer from "../components/footer";
 import { 
   Mail, 
   MapPin, 
@@ -55,7 +53,6 @@ const Contact = () => {
 
   return (
     <>
-      <NavBar />
       <PageHeader title="Connect With Us" subtitle="Start a Conversation" />
 
       <section className="py-20 bg-white">
@@ -80,7 +77,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Email</p>
-                    <a href="mailto:layo@lomediahouse.com" className="text-xl font-medium hover:text-blue-600 transition-colors">
+                    <a href="mailto:slayo@lomediahouse.com" className="text-xl font-medium hover:text-blue-600 transition-colors">
                       layo@lomediahouse.com
                     </a>
                   </div>
@@ -92,7 +89,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Phone</p>
-                    <a href="tel:+19059224471" className="text-xl font-medium hover:text-blue-600 transition-colors">
+                    <a href="tel:+2347011871220" className="text-xl font-medium hover:text-blue-600 transition-colors">
                       +1 (905) 922-4471
                     </a>
                   </div>
@@ -105,8 +102,8 @@ const Contact = () => {
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Office</p>
                     <p className="text-lg leading-tight">
-                      1551 Lycee Place, Ottawa,<br />
-                      K1G4B5 Canada
+                      1551 Lycee Place<br />
+                      Ottawa, K1G4B5, Canada
                     </p>
                   </div>
                 </div>
@@ -226,8 +223,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <Footer />
-    </>
+      </>
   );
 };
 

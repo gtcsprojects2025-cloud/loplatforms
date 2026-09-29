@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import NavBar from "./components/navBar";
+import Footer from "./components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,42 +72,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <link rel="canonical" href="https://loplatforms.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="theme-color" content="#ffffff" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "LO Platforms",
-              url: "https://loplatforms.com",
-              logo: "https://loplatforms.com/logo.png",
-              description: "Professional web design and development services",
-              sameAs: [
-                "https://linkedin.com/company/loplatforms",
-                "https://twitter.com/loplatforms",
-                "https://instagram.com/loplatforms",
-              ],
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+2347011871220",
-                email: "support@loplatforms.com",
-                contactType: "customer service",
-              },
-            }).replace(/</g, "\\u003c"),
-          }}
-        />
-      </head>
-      <body className="min-h-full flex flex-col text-black">{children}</body>
+      <body className="min-h-full flex flex-col text-black">
+        <NavBar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

@@ -21,8 +21,6 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import NavBar from "./components/navBar";
-import Footer from "./components/footer";
 import HeroSection from "./components/hero";
 
 const HomePage = () => {
@@ -146,8 +144,6 @@ const HomePage = () => {
         ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
       `}</style>
 
-      <NavBar />
-      
       <main>
         <HeroSection />
 
@@ -409,8 +405,7 @@ const HomePage = () => {
         </section>
       </main>
 
-      <Footer />
-    </div>
+      </div>
   );
 };
 
