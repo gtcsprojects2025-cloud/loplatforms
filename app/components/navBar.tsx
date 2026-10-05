@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { sendGAEvent } from "@next/third-parties/google"; // Import the GA event function
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -145,6 +146,12 @@ export default function NavBar() {
           {/* CTA Button */}
           <Link
             href="/contact"
+              onClick={() =>
+                  sendGAEvent('event', 'button_click', {
+                    value: 'Start your project',
+                    // any other parameters
+                  })
+                }
             className="hidden lg:block bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all"
           >
             Start a Project

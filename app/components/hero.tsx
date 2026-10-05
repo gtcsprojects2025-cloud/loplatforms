@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CirclePlay, Sparkles } from "lucide-react";
+import { sendGAEvent } from "@next/third-parties/google"; // Import the GA event function
 
 // Separate Hero Component
 const HeroSection = () => {
@@ -56,8 +57,18 @@ const HeroSection = () => {
               Your vision, our expertise — together we create something extraordinary.
             </p>
             <div className="flex flex-wrap gap-4 mt-5">
-              <button className="bg-black text-white px-4 py-2 rounded-full font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-300 hover:shadow-xl">
-                Start your project <ArrowUpRight className="w-5 h-5" />
+              <button
+              onClick={() =>
+                sendGAEvent('event', 'button_click', {
+                  value: 'Start your project',
+                  // any other parameters
+                })
+              }
+              
+              className="bg-black text-white px-4 py-2 rounded-full font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-300 hover:shadow-xl">
+                <Link href="/contact">
+                Start your project 
+                </Link>
               </button>
               <button className="border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-full font-semibold hover:border-blue-500 transition-all duration-300">
                 Watch demo <CirclePlay className="inline w-5 h-5 ml-2" />

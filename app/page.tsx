@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { sendGAEvent } from "@next/third-parties/google";
 import {
   Monitor,
   Smartphone,
@@ -248,7 +249,15 @@ const HomePage = () => {
             </div>
 
             <div className="text-center mt-12 fade-up">
-              <Link href="/services" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all">
+              
+              <Link
+              onClick={() =>
+                sendGAEvent('event', 'button_click', {
+                  value: 'All Services',
+                  // any other parameters
+                })
+              }
+              href="/services" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all">
                 Explore All Services <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -326,6 +335,13 @@ const HomePage = () => {
 
             <div className="text-center mt-12 fade-up">
               <Link
+
+              onClick={() =>
+                  sendGAEvent('event', 'button_click', {
+                    value: 'Meet the Team',
+                    // any other parameters
+                  })
+                }
                 href="/about"
                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-600 transition-all duration-300"
               >
@@ -390,12 +406,24 @@ const HomePage = () => {
             <div className="flex flex-wrap gap-4 justify-center">
               <button
                 type="button"
+                onClick={() =>
+                    sendGAEvent('event', 'button_click', {
+                      value: 'Start a Conversation',
+                      // any other parameters
+                    })
+                  }
                 className="bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105"
               >
                 Start a Conversation
               </button>
               <button
                 type="button"
+                onClick={() =>
+                  sendGAEvent('event', 'button_click', {
+                    value: 'View Our Work',
+                    // any other parameters
+                  })
+                }
                 className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300"
               >
                 View Our Work
