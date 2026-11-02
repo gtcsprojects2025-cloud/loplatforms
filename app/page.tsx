@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { sendGAEvent } from "@next/third-parties/google";
 import {
   Monitor,
   Smartphone,
@@ -21,8 +22,6 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import NavBar from "./components/navBar";
-import Footer from "./components/footer";
 import HeroSection from "./components/hero";
 
 const HomePage = () => {
@@ -232,7 +231,15 @@ const HomePage = () => {
             </div>
 
             <div className="text-center mt-12 fade-up">
-              <Link href="/services" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all">
+              
+              <Link
+              onClick={() =>
+                sendGAEvent('event', 'button_click', {
+                  value: 'All Services',
+                  // any other parameters
+                })
+              }
+              href="/services" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all">
                 Explore All Services <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -310,6 +317,13 @@ const HomePage = () => {
 
             <div className="text-center mt-12 fade-up">
               <Link
+
+              onClick={() =>
+                  sendGAEvent('event', 'button_click', {
+                    value: 'Meet the Team',
+                    // any other parameters
+                  })
+                }
                 href="/about"
                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-600 transition-all duration-300"
               >
@@ -389,8 +403,7 @@ const HomePage = () => {
         </section>
       </main>
 
-      <Footer />
-    </div>
+      </div>
   );
 };
 

@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { sendGAEvent } from "@next/third-parties/google"; // Import the GA event function
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -31,18 +32,23 @@ export default function NavBar() {
   }, [isMenuOpen]);
 
   const services = [
-    { label: "All Services", href: "/services" },           // ← Added
+    { label: "All Services", href: "/services" },
     { label: "Website Design", href: "/website_design" },
     { label: "Web App Development", href: "/web_app_developement" },
     { label: "Mobile App Development", href: "/mobile_app_developement" },
     { label: "Technical Infrastructure", href: "/IT_Infrastructure" },
+    { label: "Web Application Guide", href: "/web-application-development-company-in-nigeria" },
   ];
 
   return (
     <>
-      <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled ? 'bg-white shadow-lg py-4' : 'bg-white/95 backdrop-blur-md py-5'}`}>
+      <nav
+        className={`fixed w-full z-[100] transition-all duration-500 ${
+          scrolled ? 'bg-white shadow-lg py-4' : 'bg-white/95 backdrop-blur-md py-5'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 flex items-center justify-center">
@@ -106,7 +112,7 @@ export default function NavBar() {
           </div>
 
           {/* CTA Button */}
-          <Link 
+          <Link
             href="/contact"
             className="hidden lg:block bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-600/30 transition-all duration-300"
           >
@@ -114,9 +120,10 @@ export default function NavBar() {
           </Link>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="lg:hidden p-2 text-slate-900"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -132,19 +139,23 @@ export default function NavBar() {
 
               {/* Mobile Services Accordion */}
               <div>
-                <button 
-                  onClick={() => setServicesOpen(!servicesOpen)}
+                <button
+                  type="button"
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                  aria-expanded={mobileServicesOpen}
                   className="flex items-center justify-between w-full text-left"
                 >
                   Services
-                  <ChevronDown className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                  />
                 </button>
-                {servicesOpen && (
+                {mobileServicesOpen && (
                   <div className="mt-4 ml-4 flex flex-col gap-4 border-l border-slate-200 pl-6">
                     {services.map((service, i) => (
-                      <Link 
-                        key={i} 
-                        href={service.href} 
+                      <Link
+                        key={i}
+                        href={service.href}
                         onClick={() => setIsMenuOpen(false)}
                         className="text-slate-600 hover:text-blue-600"
                       >
@@ -155,10 +166,19 @@ export default function NavBar() {
                 )}
               </div>
 
-              <Link href="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
-              <Link href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              {/* Blog — NEW */}
+              <Link href="/blog" onClick={() => setIsMenuOpen(false)}>
+                Blog
+              </Link>
 
-              <Link 
+              <Link href="/faq" onClick={() => setIsMenuOpen(false)}>
+                FAQ
+              </Link>
+              <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
+                Contact
+              </Link>
+
+              <Link
                 href="/contact"
                 className="mt-6 bg-blue-600 text-white py-4 rounded-2xl text-center font-semibold"
                 onClick={() => setIsMenuOpen(false)}

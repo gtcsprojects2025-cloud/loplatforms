@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import NavBar from "../components/navBar";
 import PageHeader from "../components/pageHeader";
-import Footer from "../components/footer";
 import { 
   Mail, 
   MapPin, 
@@ -55,7 +53,6 @@ const Contact = () => {
 
   return (
     <>
-      <NavBar />
       <PageHeader title="Connect With Us" subtitle="Start a Conversation" />
 
       <section className="py-20 bg-white">
@@ -105,8 +102,8 @@ const Contact = () => {
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Office</p>
                     <p className="text-lg leading-tight">
-                      11, Ogunmefun Street<br />
-                      Gbagada, Lagos, Nigeria
+                      1551 Lycee Place<br />
+                      Ottawa, K1G4B5, Canada
                     </p>
                   </div>
                 </div>
@@ -226,8 +223,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <Footer />
-    </>
+      </>
   );
 };
 

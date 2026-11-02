@@ -85,8 +85,7 @@ const Footer = () => {
                 <div>
                   <p className="font-medium text-white">Office</p>
                   <p className="leading-tight">
-                    11, Ogunmefun Street<br />
-                    Gbagada, Lagos, Nigeria
+                    1551 Lycee Place, Ottawa,<br /> K1G4B5 Canada
                   </p>
                 </div>
               </div>
