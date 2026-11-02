@@ -76,8 +76,12 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col text-black">
         <ScrollReveal />
+        <NavBar />
         {children}
+        <Footer />
       </body>
+      {/* Set NEXT_PUBLIC_GA_ID (e.g. G-XXXXXXX) in .env.local / your host to enable Google Analytics */}
+      {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
     </html>
   );
 }

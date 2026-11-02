@@ -125,7 +125,6 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden text-black">
 
-      <NavBar />
       
       <main>
         <HeroSection />
