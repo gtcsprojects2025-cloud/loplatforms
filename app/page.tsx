@@ -125,26 +125,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden text-black">
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
-        
-        * { font-family: 'Inter', sans-serif; }
-        
-        .fade-up {
-          opacity: 0;
-          transform: translateY(40px);
-          transition: all 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        
-        .fade-up.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
-      `}</style>
 
       <NavBar />
       
@@ -158,7 +138,7 @@ const HomePage = () => {
               {stats.map((stat, i) => (
                 <div key={i} className="text-center fade-up">
                   <div className="flex justify-center mb-3 text-blue-400">{stat.icon}</div>
-                  <div className="text-3xl md:text-4xl font-bold text-white">{stat.value}</div>
+                  <div className="text-2xl md:text-4xl font-bold text-white">{stat.value}</div>
                   <div className="text-slate-400 text-sm font-medium mt-1">{stat.label}</div>
                 </div>
               ))}
@@ -167,7 +147,7 @@ const HomePage = () => {
         </div>
 
         {/* Mission Section */}
-        <section className="py-28 lg:py-32 bg-white">
+        <section className="py-20 md:py-28 lg:py-32 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-16 items-start">
               <div className="fade-up">
@@ -175,7 +155,7 @@ const HomePage = () => {
                   <Target className="w-4 h-4 text-blue-600" />
                   <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Our Mission</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] tracking-tighter">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-[1.1] tracking-tighter">
                   Beyond Digital{" "}
                   <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Products.</span>
                 </h2>
@@ -185,7 +165,7 @@ const HomePage = () => {
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   {["Zero-downtime architecture", "Enterprise security", "Global scalability"].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 bg-slate-50 rounded-full px-4 py-2">
+                    <div key={i} className="flex items-center gap-2 bg-slate-50 rounded-full px-4 py-2 hover:bg-blue-50 hover:-translate-y-0.5 transition-all duration-300 cursor-default">
                       <CheckCircle2 className="w-4 h-4 text-blue-600" />
                       <span className="text-sm text-slate-700">{item}</span>
                     </div>
@@ -194,7 +174,7 @@ const HomePage = () => {
               </div>
 
               <div className="fade-up">
-                <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 rounded-3xl p-8 border border-slate-100 shadow-sm">
+                <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 rounded-3xl p-6 md:p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
                       <Quote className="w-6 h-6 text-white" />
@@ -221,11 +201,11 @@ const HomePage = () => {
         </section>
 
         {/* Services Section */}
-        <section className="py-28 bg-slate-50">
+        <section className="py-20 md:py-28 bg-slate-50">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16 fade-up">
               <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">What We Do</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3">Core Capabilities</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">Core Capabilities</h2>
               <p className="text-slate-600 max-w-2xl mx-auto mt-4">Comprehensive digital solutions tailored to your needs.</p>
             </div>
 
@@ -235,7 +215,7 @@ const HomePage = () => {
                   key={i}
                   className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 fade-up cursor-pointer"
                 >
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white mb-5 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
                     {service.icon}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{service.title}</h3>
@@ -260,17 +240,17 @@ const HomePage = () => {
         </section>
 
         {/* Portfolio Section */}
-        <section className="py-28 bg-white">
+        <section className="py-20 md:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 fade-up">
-              <div>
-                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider flex items-center gap-2">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6 fade-up">
+              <div className="text-center md:text-left">
+                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider flex items-center justify-center md:justify-start gap-2">
                   <Briefcase className="w-4 h-4" /> Case Studies
                 </span>
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-2">Strategic Portfolio</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2">Strategic Portfolio</h2>
               </div>
-              <Link href="/portfolio" className="text-slate-600 font-medium hover:text-blue-600 transition-colors flex items-center gap-1">
-                View All Works <ChevronRight className="w-4 h-4" />
+              <Link href="/services" className="text-slate-600 font-medium hover:text-blue-600 transition-colors flex items-center gap-1">
+                View Our Services <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
 
@@ -300,13 +280,13 @@ const HomePage = () => {
         </section>
 
         {/* Team Section */}
-        <section className="py-28 bg-gradient-to-br from-slate-50 via-white to-blue-50/20">
+        <section className="py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-blue-50/20">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16 fade-up">
               <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2">
                 <Users className="w-4 h-4" /> The Team
               </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3">Expert Minds. Focused Mission.</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">Expert Minds. Focused Mission.</h2>
               <p className="text-slate-600 max-w-2xl mx-auto mt-4">
                 Our team consists of high-level architects, security experts, and designers who share a singular vision.
               </p>
@@ -315,10 +295,10 @@ const HomePage = () => {
             <div className="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
               {team.map((member, i) => (
                 <div key={i} className="text-center fade-up group">
-                  <div className="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 ring-4 ring-white">
+                  <div className="w-40 h-40 md:w-48 md:h-48 mx-auto rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl group-hover:ring-blue-100 transition-all duration-500 ring-4 ring-white">
                     <img
                       src={member.img}
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700"
                       alt={member.name}
                     />
                   </div>
@@ -340,7 +320,7 @@ const HomePage = () => {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-28 bg-slate-900 text-white relative overflow-hidden">
+        <section className="py-20 md:py-28 bg-slate-900 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-purple-600/10" />
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
@@ -348,7 +328,7 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16 fade-up">
               <span className="text-blue-400 font-semibold text-sm uppercase tracking-wider">Testimonials</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">Client Impact</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">Client Impact</h2>
               <p className="text-slate-300 max-w-2xl mx-auto mt-4">What our clients say about working with us</p>
             </div>
 
@@ -356,7 +336,7 @@ const HomePage = () => {
               {testimonials.map((testimonial, i) => (
                 <div
                   key={i}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 fade-up border border-white/10"
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 hover:bg-white/15 hover:-translate-y-2 transition-all duration-500 fade-up border border-white/10"
                 >
                   <Quote className="w-10 h-10 text-blue-400 mb-4" />
                   <p className="text-lg leading-relaxed mb-6">"{testimonial.quote}"</p>
@@ -379,7 +359,7 @@ const HomePage = () => {
 
         {/* CTA Section */}
         <section className="py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 bg-[length:200%_auto] animate-gradient" />
           <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 opacity=%220.05%22%3E%3Cpath fill=%22white%22 d=%22M50 0L100 50L50 100L0 50Z%22/%3E%3C/svg%3E')] bg-repeat" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
@@ -387,23 +367,23 @@ const HomePage = () => {
               <Sparkles className="w-4 h-4 text-white" />
               <span className="text-sm font-medium text-white">Let's Work Together</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to transform your digital presence?</h2>
-            <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to transform your digital presence?</h2>
+            <p className="text-base md:text-lg text-white/90 mb-10 max-w-2xl mx-auto">
               Let's create something extraordinary together. Get in touch and let's start building the future.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <button
-                type="button"
+              <Link
+                href="/contact"
                 className="bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105"
               >
                 Start a Conversation
-              </button>
-              <button
-                type="button"
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300"
+              </Link>
+              <Link
+                href="/services"
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300"
               >
-                View Our Work
-              </button>
+                View Our Services
+              </Link>
             </div>
           </div>
         </section>

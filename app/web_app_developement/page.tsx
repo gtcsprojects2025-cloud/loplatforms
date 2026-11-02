@@ -70,26 +70,26 @@ const WebDev = () => {
       <NavBar />
 
       {/* Hero Section */}
-      <section className="pt-20 md:pt-40 pb-20 bg-gradient-to-br from-slate-950 via-zinc-900 to-slate-950 text-white relative overflow-hidden">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 bg-gradient-to-br from-slate-950 via-zinc-900 to-slate-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(at_top_right,#3b82f620_0%,transparent_50%)]" />
         
-        <div className="max-w-5xl mx-auto px-6 text-center relative">
+        <div className="max-w-5xl mx-auto px-6 text-center relative animate-hero-in">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full mb-8">
             <Layers className="w-5 h-5" />
             <span className="text-sm font-medium tracking-widest uppercase">Intelligent Systems</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tighter leading-tight mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight mb-6">
             Web apps that drive<br />real business growth
           </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
             We build secure, scalable, and high-performing web applications tailored to your unique operational needs.
           </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Text */}
@@ -98,7 +98,7 @@ const WebDev = () => {
                 <Layers className="w-11 h-11" />
               </div>
               
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900">
                 Custom Web Applications<br />Built for Performance
               </h2>
               
@@ -110,7 +110,7 @@ const WebDev = () => {
 
               <Link 
                 href="/contact"
-                className="inline-flex items-center gap-3 bg-slate-900 hover:bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all group"
+                className="inline-flex items-center gap-3 bg-slate-900 hover:bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-600/30 transition-all duration-300 group"
               >
                 Start Building Your Web App
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -138,19 +138,19 @@ const WebDev = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 reveal">
-            <h2 className="text-4xl font-bold tracking-tighter">Why Our Web Apps Stand Out</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Why Our Web Apps Stand Out</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, i) => (
-              <div key={i} className="bg-white p-8 rounded-3xl hover:shadow-xl transition-all duration-500 reveal group">
-                <div className="text-blue-600 mb-6 group-hover:scale-110 transition-transform">
+              <div key={i} className="bg-white p-6 md:p-8 rounded-3xl border border-transparent hover:border-blue-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 reveal group">
+                <div className="text-blue-600 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
                   {benefit.icon}
                 </div>
-                <h3 className="text-2xl font-bold mb-3">{benefit.title}</h3>
+                <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
                 <p className="text-slate-600">{benefit.desc}</p>
               </div>
             ))}
@@ -159,16 +159,16 @@ const WebDev = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16 reveal">
-            <h2 className="text-4xl font-bold tracking-tighter">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Frequently Asked Questions</h2>
           </div>
 
           <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="border border-slate-100 rounded-3xl p-8 hover:border-blue-200 transition-colors reveal">
-                <h4 className="font-semibold text-xl text-slate-900 mb-4">{faq.question}</h4>
+              <div key={i} className="border border-slate-100 rounded-3xl p-6 md:p-8 hover:border-blue-200 hover:shadow-lg transition-colors reveal">
+                <h4 className="font-semibold text-lg text-slate-900 mb-3">{faq.question}</h4>
                 <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
@@ -177,9 +177,9 @@ const WebDev = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-28 bg-slate-900 text-white text-center">
+      <section className="py-20 md:py-28 bg-slate-900 text-white text-center">
         <div className="max-w-3xl mx-auto px-6">
-          <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
+          <h3 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">
             Ready to transform your operations?
           </h3>
           <p className="text-slate-400 text-lg mb-10">
@@ -187,7 +187,7 @@ const WebDev = () => {
           </p>
           <Link 
             href="/contact"
-            className="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-full font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all"
+            className="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-full font-semibold text-lg hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
           >
             Start Your Project
             <ArrowRight />

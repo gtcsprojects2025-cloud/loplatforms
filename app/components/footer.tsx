@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from 'lucide-react';
 
+const SOCIALS_ENABLED = false;
+
 const Footer = () => {
   return (
     <footer className="bg-slate-950 text-white pt-24 pb-12">
@@ -23,7 +25,7 @@ const Footer = () => {
                   className="brightness-125"
                 />
               </div>
-              <span className="text-3xl font-black tracking-tighter">
+              <span className="text-2xl font-black tracking-tighter">
                 LO <span className="text-blue-600">PLATFORMS</span>
               </span>
             </div>
@@ -33,21 +35,23 @@ const Footer = () => {
               for forward-thinking organizations.
             </p>
 
-            <div className="flex gap-6 text-slate-400">
-              <a href="#" className="hover:text-white transition-colors">Twitter</a>
-              <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-              <a href="#" className="hover:text-white transition-colors">Instagram</a>
-            </div>
+            {/* Social links disabled until the accounts exist — set SOCIALS_ENABLED to true and add the URLs */}
+            {SOCIALS_ENABLED && (
+              <div className="flex gap-6 text-slate-400">
+                <a href="#" className="inline-block hover:text-white hover:-translate-y-0.5 transition-all duration-300">Twitter</a>
+                <a href="#" className="inline-block hover:text-white hover:-translate-y-0.5 transition-all duration-300">LinkedIn</a>
+                <a href="#" className="inline-block hover:text-white hover:-translate-y-0.5 transition-all duration-300">Instagram</a>
+              </div>
+            )}
           </div>
 
           {/* Quick Links */}
           <div className="lg:col-span-3">
             <h5 className="font-semibold uppercase tracking-widest text-sm text-blue-500 mb-6">Company</h5>
             <ul className="space-y-4 text-slate-400">
-              <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><Link href="/services" className="hover:text-white transition-colors">Services</Link></li>
-              <li><Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link></li>
-              <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+              <li><Link href="/about" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">About Us</Link></li>
+              <li><Link href="/services" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">Services</Link></li>
+              <li><Link href="/faq" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">FAQ</Link></li>
             </ul>
           </div>
 
@@ -60,7 +64,7 @@ const Footer = () => {
                 <Mail className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                   <p className="font-medium text-white">Email</p>
-                  <a href="mailto:support@loplatforms.com" className="hover:text-white transition-colors">
+                  <a href="mailto:support@loplatforms.com" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">
                     support@loplatforms.com
                   </a>
                 </div>
@@ -70,7 +74,7 @@ const Footer = () => {
                 <Phone className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                   <p className="font-medium text-white">Phone</p>
-                  <a href="tel:+2347011871220" className="hover:text-white transition-colors">
+                  <a href="tel:+2347011871220" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">
                     +234 701 187 1220
                   </a>
                 </div>

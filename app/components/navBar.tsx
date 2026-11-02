@@ -18,6 +18,18 @@ export default function NavBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Stop the page behind the mobile menu from scrolling; close it on Escape
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handleKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsMenuOpen(false);
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKey);
+    };
+  }, [isMenuOpen]);
+
   const services = [
     { label: "All Services", href: "/services" },           // ← Added
     { label: "Website Design", href: "/website_design" },
@@ -42,18 +54,18 @@ export default function NavBar() {
                 className="transition-transform group-hover:rotate-12"
               />
             </div>
-            <span className="text-2xl font-black tracking-tighter text-slate-900">
+            <span className="text-xl sm:text-2xl font-black tracking-tighter text-slate-900">
               LO <span className="text-blue-600">PLATFORMS</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-10">
-            <Link href="/" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link href="/" className="nav-link text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
               Home
             </Link>
 
-            <Link href="/about" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link href="/about" className="nav-link text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
               About
             </Link>
 
@@ -64,7 +76,7 @@ export default function NavBar() {
               onMouseLeave={() => setServicesOpen(false)}
             >
               <button 
-                className="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+                className="flex items-center gap-1 nav-link text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
               >
                 Services
                 <ChevronDown size={16} className="transition-transform group-hover:rotate-180" />
@@ -76,7 +88,7 @@ export default function NavBar() {
                   <Link
                     key={i}
                     href={service.href}
-                    className="block px-6 py-3 text-sm hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600"
+                    className="block px-6 py-3 text-sm hover:bg-slate-50 hover:pl-8 transition-all duration-300 text-slate-700 hover:text-blue-600"
                   >
                     {service.label}
                   </Link>
@@ -84,11 +96,11 @@ export default function NavBar() {
               </div>
             </div>
 
-            <Link href="/faq" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link href="/faq" className="nav-link text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
               FAQ
             </Link>
 
-            <Link href="/contact" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+            <Link href="/contact" className="nav-link text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
               Contact
             </Link>
           </div>
@@ -96,7 +108,7 @@ export default function NavBar() {
           {/* CTA Button */}
           <Link 
             href="/contact"
-            className="hidden lg:block bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all"
+            className="hidden lg:block bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-600/30 transition-all duration-300"
           >
             Start a Project
           </Link>
@@ -109,11 +121,12 @@ export default function NavBar() {
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
+      </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu — rendered outside <nav>: its backdrop-blur would otherwise clip this fixed panel to the nav's height */}
         {isMenuOpen && (
-          <div className="lg:hidden fixed inset-0 bg-white z-[110] pt-20 px-6 overflow-auto">
-            <div className="flex flex-col gap-6 text-lg font-medium">
+          <div className="lg:hidden fixed inset-0 bg-white z-[90] pt-24 pb-10 px-6 overflow-y-auto animate-menu-in">
+            <div className="flex flex-col gap-5 text-base font-medium text-slate-800 [&>a]:transition-colors [&>a:hover]:text-blue-600">
               <Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
               <Link href="/about" onClick={() => setIsMenuOpen(false)}>About Us</Link>
 
@@ -155,7 +168,6 @@ export default function NavBar() {
             </div>
           </div>
         )}
-      </nav>
     </>
   );
 }

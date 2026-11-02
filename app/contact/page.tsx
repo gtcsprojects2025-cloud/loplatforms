@@ -65,7 +65,7 @@ const Contact = () => {
             {/* Contact Information */}
             <div className="reveal">
               <div className="mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-tight mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-tight mb-6">
                   Let's create something <span className="text-blue-600">extraordinary</span> together
                 </h2>
                 <p className="text-lg text-slate-600">
@@ -80,7 +80,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Email</p>
-                    <a href="mailto:support@loplatforms.com" className="text-xl font-medium hover:text-blue-600 transition-colors">
+                    <a href="mailto:support@loplatforms.com" className="text-base md:text-xl font-medium break-all hover:text-blue-600 transition-colors">
                       support@loplatforms.com
                     </a>
                   </div>
@@ -92,7 +92,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm uppercase tracking-widest text-slate-500 mb-1">Phone</p>
-                    <a href="tel:+2347011871220" className="text-xl font-medium hover:text-blue-600 transition-colors">
+                    <a href="tel:+2347011871220" className="text-base md:text-xl font-medium break-all hover:text-blue-600 transition-colors">
                       +234 701 187 1220
                     </a>
                   </div>
@@ -126,9 +126,9 @@ const Contact = () => {
             {/* Contact Form */}
             <div className="reveal">
               {formStatus === 'success' ? (
-                <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-12 text-center h-full flex flex-col justify-center">
+                <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-8 md:p-12 text-center h-full flex flex-col justify-center">
                   <CheckCircle2 size={70} className="mx-auto text-emerald-600 mb-6" />
-                  <h3 className="text-3xl font-bold text-slate-900 mb-3">Message Received!</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">Message Received!</h3>
                   <p className="text-slate-600 text-lg mb-8">
                     Thank you. Our team has been notified and will get back to you within 24 hours.
                   </p>
@@ -140,7 +140,7 @@ const Contact = () => {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="bg-white border border-slate-100 shadow-xl rounded-3xl p-10 md:p-12">
+                <form onSubmit={handleFormSubmit} className="bg-white border border-slate-100 shadow-xl rounded-3xl p-6 md:p-12">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">Full Name *</label>

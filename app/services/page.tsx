@@ -69,24 +69,24 @@ const Services = () => {
       <NavBar />
 
       {/* Hero Section */}
-      <section className=" pt:20 md:pt-40 pb-20 bg-gradient-to-br from-slate-950 to-zinc-900 text-white">
-        <div className="max-w-5xl mx-auto px-6 text-center">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 bg-gradient-to-br from-slate-950 to-zinc-900 text-white">
+        <div className="max-w-5xl mx-auto px-6 text-center animate-hero-in">
           <div className="inline-flex items-center gap-2 bg-white/10 px-6 py-2.5 rounded-full mb-6">
             <Sparkles className="w-5 h-5" />
             <span className="text-sm uppercase tracking-widest font-medium">Premium Digital Solutions</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tighter leading-tight mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight mb-6">
             We build digital experiences<br />that actually matter
           </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
             From pixel-perfect websites to complex enterprise systems — we deliver modern, scalable, and high-impact solutions.
           </p>
         </div>
       </section>
 
       {/* Services Grid - Modern Cards */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8">
             {services.map((service, i) => (
@@ -95,7 +95,7 @@ const Services = () => {
                 className="group bg-white border border-slate-100 rounded-3xl overflow-hidden hover:border-slate-200 hover:shadow-2xl transition-all duration-700 reveal"
               >
                 {/* High Quality Image */}
-                <div className="relative h-80 overflow-hidden">
+                <div className="relative h-56 md:h-80 overflow-hidden">
                   <img 
                     src={service.image} 
                     alt={service.title}
@@ -109,8 +109,8 @@ const Services = () => {
                   </div>
                 </div>
 
-                <div className="p-10">
-                  <h3 className="text-3xl font-bold text-slate-900 mb-3">{service.title}</h3>
+                <div className="p-6 md:p-10">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{service.title}</h3>
                   <p className="text-blue-600 font-medium mb-4">{service.short}</p>
                   <p className="text-slate-600 leading-relaxed mb-8">
                     {service.description}
@@ -131,10 +131,10 @@ const Services = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 reveal">
-            <h2 className="text-4xl font-bold tracking-tighter mb-4">Why Organizations Choose LO Platform</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Why Organizations Choose LO Platform</h2>
             <p className="text-slate-600 max-w-md mx-auto">We don’t just deliver code — we deliver clarity, performance, and long-term value.</p>
           </div>
 
@@ -144,9 +144,9 @@ const Services = () => {
               { title: "Built to Scale", desc: "Solutions designed to grow effortlessly as your organization expands." },
               { title: "Obsessed with Quality", desc: "Pixel-perfect design and clean, maintainable code are our standard." }
             ].map((item, i) => (
-              <div key={i} className="bg-white p-8 rounded-3xl reveal">
+              <div key={i} className="bg-white p-6 md:p-8 rounded-3xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 reveal">
                 <div className="text-blue-600 text-4xl font-bold mb-4">0{i+1}</div>
-                <h4 className="text-2xl font-bold mb-3">{item.title}</h4>
+                <h4 className="text-xl font-bold mb-3">{item.title}</h4>
                 <p className="text-slate-600">{item.desc}</p>
               </div>
             ))}
@@ -155,9 +155,9 @@ const Services = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-28 bg-slate-900 text-white text-center">
+      <section className="py-20 md:py-28 bg-slate-900 text-white text-center">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">
             Ready to bring your vision to life?
           </h2>
           <p className="text-slate-400 text-lg mb-10">
@@ -165,7 +165,7 @@ const Services = () => {
           </p>
           <Link 
             href="/contact"
-            className="inline-flex items-center gap-4 bg-white text-slate-900 px-12 py-5 rounded-full font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all"
+            className="inline-flex items-center gap-4 bg-white text-slate-900 px-8 md:px-12 py-4 md:py-5 rounded-full font-semibold text-lg hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
           >
             Start Your Project
             <ArrowRight className="w-6 h-6" />

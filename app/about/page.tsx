@@ -75,22 +75,22 @@ const About = () => {
       <NavBar />
       
       {/* Hero Section - Balanced Heading */}
-      <section className="pt-28 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white relative overflow-hidden">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(at_top_right,#3b82f620_0%,transparent_50%)]" />
         
         <div className="max-w-7xl mx-auto px-6 relative">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl animate-hero-in">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full text-sm mb-6">
               <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
               EST. 2020
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tighter leading-[1.1] mb-6">
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tighter leading-[1.1] mb-6">
               We don't just build websites.<br />
               We engineer <span className="text-blue-500">digital futures.</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-slate-400 max-w-lg">
+            <p className="text-base md:text-lg text-slate-400 max-w-lg">
               LO Platform is a strategic technology partner helping organizations and ministries thrive in the digital age.
             </p>
           </div>
@@ -98,12 +98,12 @@ const About = () => {
       </section>
 
       {/* Story Section - Better Balanced */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
             <div className="reveal">
               <div className="uppercase text-blue-600 font-semibold tracking-widest text-sm mb-4">OUR STORY</div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-tight mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-tight mb-8">
                 Building with purpose,<br />delivering with excellence.
               </h2>
               <div className="space-y-6 text-[17px] text-slate-600 leading-relaxed">
@@ -120,20 +120,20 @@ const About = () => {
 
             {/* Stats Cards */}
             <div className="reveal grid grid-cols-2 gap-6">
-              <div className="bg-slate-100 rounded-3xl p-8">
-                <div className="text-5xl font-bold text-slate-900 mb-2">50+</div>
+              <div className="bg-slate-100 rounded-3xl p-5 md:p-8 hover:bg-blue-50 hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">50+</div>
                 <p className="text-slate-600">Projects Delivered</p>
               </div>
-              <div className="bg-slate-100 rounded-3xl p-8">
-                <div className="text-5xl font-bold text-slate-900 mb-2">1.2M+</div>
+              <div className="bg-slate-100 rounded-3xl p-5 md:p-8 hover:bg-blue-50 hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">1.2M+</div>
                 <p className="text-slate-600">Users Reached</p>
               </div>
-              <div className="bg-slate-100 rounded-3xl p-8">
-                <div className="text-5xl font-bold text-slate-900 mb-2">99.9%</div>
+              <div className="bg-slate-100 rounded-3xl p-5 md:p-8 hover:bg-blue-50 hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">99.9%</div>
                 <p className="text-slate-600">Uptime Average</p>
               </div>
-              <div className="bg-slate-100 rounded-3xl p-8">
-                <div className="text-5xl font-bold text-slate-900 mb-2">4</div>
+              <div className="bg-slate-100 rounded-3xl p-5 md:p-8 hover:bg-blue-50 hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">4</div>
                 <p className="text-slate-600">Countries Served</p>
               </div>
             </div>
@@ -142,23 +142,23 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 reveal">
             <div className="text-blue-600 font-semibold uppercase tracking-widest text-sm mb-3">OUR PRINCIPLES</div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">What drives everything we do</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">What drives everything we do</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, i) => (
               <div 
                 key={i} 
-                className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 group reveal"
+                className="bg-white p-6 md:p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group reveal"
               >
-                <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
                   {value.icon}
                 </div>
-                <h3 className="text-2xl font-bold mb-3">{value.title}</h3>
+                <h3 className="text-xl font-bold mb-3">{value.title}</h3>
                 <p className="text-slate-600 leading-relaxed">{value.desc}</p>
               </div>
             ))}
@@ -167,18 +167,18 @@ const About = () => {
       </section>
 
       {/* Leadership Team - Fixed Image Cropping */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 reveal">
             <div className="text-blue-600 font-semibold uppercase tracking-widest text-sm mb-3">LEADERSHIP</div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">The minds behind the mission</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">The minds behind the mission</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-10">
             {team.map((member, i) => (
               <div 
                 key={i} 
-                className="group reveal bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-700"
+                className="group reveal bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-700"
               >
                 {/* Improved Image Container */}
                 <div className="h-80 bg-slate-200 overflow-hidden">
@@ -190,7 +190,7 @@ const About = () => {
                 </div>
                 
                 <div className="p-8">
-                  <h4 className="text-2xl font-bold text-slate-900">{member.name}</h4>
+                  <h4 className="text-xl font-bold text-slate-900">{member.name}</h4>
                   <p className="text-blue-600 font-medium mt-1">{member.role}</p>
                   <p className="text-slate-600 mt-5 leading-relaxed text-[15px]">
                     {member.bio}
@@ -203,18 +203,18 @@ const About = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-slate-900 text-white">
+      <section className="py-16 md:py-24 bg-slate-900 text-white">
         <div className="max-w-4xl mx-auto text-center px-6">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">
             Let's build something meaningful together
           </h2>
-          <p className="text-xl text-slate-400 mb-10 max-w-md mx-auto">
+          <p className="text-base md:text-lg text-slate-400 mb-10 max-w-md mx-auto">
             Whether you're a growing business or a large organization, we're ready to partner with you.
           </p>
           
           <Link 
             href="/contact"
-            className="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all group"
+            className="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"
           >
             Start a Project
             <ArrowRight className="group-hover:translate-x-1 transition-transform" />

@@ -58,10 +58,10 @@ const Faq = () => {
       <NavBar />
       <PageHeader title="FAQ" subtitle="Frequently Asked Questions" />
 
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 mb-4">
               Got Questions?
             </h2>
             <p className="text-slate-600 text-lg">
@@ -77,11 +77,11 @@ const Faq = () => {
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full px-8 py-6 text-left flex items-center justify-between group"
+                  className="w-full px-5 md:px-8 py-5 md:py-6 text-left flex items-center justify-between group"
                 >
                   <div className="flex items-start gap-4">
                     <MessageSquare className="text-blue-600 mt-1 flex-shrink-0" size={22} />
-                    <h3 className="text-lg font-semibold text-slate-900 pr-8">
+                    <h3 className="text-lg font-semibold text-slate-900 pr-4 md:pr-8">
                       {faq.question}
                     </h3>
                   </div>
@@ -98,7 +98,7 @@ const Faq = () => {
                     openIndex === index ? "max-h-96 pb-8" : "max-h-0"
                   }`}
                 >
-                  <p className="px-8 text-slate-600 leading-relaxed">
+                  <p className="px-5 md:px-8 text-slate-600 leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>
@@ -107,8 +107,8 @@ const Faq = () => {
           </div>
 
           {/* Still Have Questions */}
-          <div className="mt-20 bg-slate-900 text-white rounded-3xl p-12 md:p-16 text-center">
-            <h3 className="text-3xl font-bold tracking-tighter mb-4">
+          <div className="mt-20 bg-slate-900 text-white rounded-3xl p-8 md:p-16 text-center">
+            <h3 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">
               Still have questions?
             </h3>
             <p className="text-slate-400 max-w-md mx-auto mb-8">
@@ -116,7 +116,7 @@ const Faq = () => {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-4 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-all"
+              className="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-4 rounded-full font-semibold hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
             >
               Talk to Our Team
             </Link>

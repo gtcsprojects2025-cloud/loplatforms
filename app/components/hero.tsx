@@ -1,13 +1,28 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CirclePlay, Sparkles } from "lucide-react";
+import HeroParticles from "./heroParticles";
 
 // Separate Hero Component
 const HeroSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const tiltRef = useRef<HTMLDivElement>(null);
+
+  // Tilt the image toward the mouse
+  const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    if (e.pointerType !== "mouse" || !tiltRef.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    tiltRef.current.style.transform = `perspective(1200px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translate3d(${x * 20}px, ${y * 20}px, 0)`;
+  };
+
+  const handlePointerLeave = () => {
+    if (tiltRef.current) tiltRef.current.style.transform = "";
+  };
 
   const rotatingImages = [
      "https://images.unsplash.com/photo-1551434678-e076c2235a95?w=800&h=600&fit=crop",
@@ -29,10 +44,17 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden pt-32 pb-20 text-black">
+    <section
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      className="min-h-screen flex items-center relative overflow-hidden pt-32 pb-44 md:pb-36 text-black select-none [-webkit-touch-callout:none]"
+    >
       {/* Background subtle gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-white pointer-events-none"></div>
-      
+
+      {/* Interactive particle field + "gather the network" mini challenge */}
+      <HeroParticles />
+
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text and CTA */}
@@ -41,9 +63,9 @@ const HeroSection = () => {
               <Sparkles className="w-4 h-4 text-blue-600" />
               <span className="text-sm font-medium text-slate-700">Trusted by 250+ companies</span>
             </div>
-            <h1 className="text-6xl md:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tighter">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tighter">
               Build the <br/>
-              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-red-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-red-600 bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent">
                   Future
                 </span>
               <span >
@@ -51,21 +73,21 @@ const HeroSection = () => {
                 {" "}of Digital
               </span>
             </h1>
-            <p className="text-lg text-slate-600 mt-6 max-w-lg leading-relaxed">
+            <p className="text-base md:text-lg text-slate-600 mt-6 max-w-lg leading-relaxed">
               We engineer powerful digital platforms that transform ideas into impact. 
               Your vision, our expertise — together we create something extraordinary.
             </p>
             <div className="flex flex-wrap gap-4 mt-5">
-              <button className="bg-black text-white px-4 py-2 rounded-full font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-300 hover:shadow-xl">
+              <Link href="/contact" className="bg-black text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold flex items-center gap-2 hover:gap-3 hover:bg-blue-600 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/30">
                 Start your project <ArrowUpRight className="w-5 h-5" />
-              </button>
-              <button className="border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-full font-semibold hover:border-blue-500 transition-all duration-300">
-                Watch demo <CirclePlay className="inline w-5 h-5 ml-2" />
-              </button>
+              </Link>
+              <Link href="/services" className="border-2 border-slate-200 text-slate-700 px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold flex items-center hover:border-blue-500 hover:text-blue-600 hover:-translate-y-1 transition-all duration-300">
+                Our services <CirclePlay className="inline w-5 h-5 ml-2" />
+              </Link>
             </div>
             
             {/* Stats row */}
-            <div className="flex gap-8 mt-12 pt-8 border-t border-slate-100">
+            <div className="flex flex-wrap gap-6 sm:gap-8 mt-12 pt-8 border-t border-slate-100">
               <div><div className="text-3xl font-bold text-slate-900">250+</div><div className="text-sm text-slate-500">Projects</div></div>
               <div><div className="text-3xl font-bold text-slate-900">50+</div><div className="text-sm text-slate-500">Team members</div></div>
               <div><div className="text-3xl font-bold text-slate-900">98%</div><div className="text-sm text-slate-500">Retention rate</div></div>
@@ -73,9 +95,12 @@ const HeroSection = () => {
           </div>
 
           {/* Right side - Glassy Amoeba Shape with rotating image */}
-          <div className="relative flex justify-center items-center">
+          <div className="relative flex justify-center items-center fade-up">
             {/* Main Amoeba Shape - Glass morphism */}
-            <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px]">
+            <div
+              ref={tiltRef}
+              className="relative w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] transition-transform duration-300 ease-out will-change-transform"
+            >
               {/* Animated blob/amoeba background */}
               <svg className="absolute inset-0 w-full h-full animate-blob-slow" viewBox="0 0 500 500">
                 <defs>
